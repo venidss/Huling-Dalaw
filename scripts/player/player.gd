@@ -81,6 +81,18 @@ func _on_paused_changed(is_paused: bool) -> void:
 		return
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if is_paused else Input.MOUSE_MODE_CAPTURED
 
+## _input runs BEFORE any Control's _gui_input and before _unhandled_input, so mouse
+## motion events can't be swallowed by HUD elements (dialogue box, touch camera area,
+## etc.). We use it specifically for mouse look.
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		if not can_move:
+			return
+		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+			return
+		var sens: float = Settings.camera_sensitivity * MOUSE_SENSITIVITY_SCALE
+		_apply_look((event as InputEventMouseMotion).relative * sens)
+
 func _unhandled_input(event: InputEvent) -> void:
 	# Left-click anywhere in the game viewport re-captures the mouse on desktop. This
 	# is a universal rescue if the user accidentally alt-tabbed or if the initial
@@ -89,13 +101,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not _is_mobile_platform() and not GameState.is_paused and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			# Don't fall through to interact on the same click — just capture.
+			get_viewport().set_input_as_handled()
 			return
 	if not can_move:
 		return
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var sens: float = Settings.camera_sensitivity * MOUSE_SENSITIVITY_SCALE
-		_apply_look(event.relative * sens)
-	elif event.is_action_pressed("flashlight"):
+	if event.is_action_pressed("flashlight"):
 		if Inventory.has_item("flashlight"):
 			toggle_flashlight()
 	elif event.is_action_pressed("interact"):
