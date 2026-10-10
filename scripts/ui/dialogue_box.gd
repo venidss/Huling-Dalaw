@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 	if not _typing:
 		return
 	_type_t += delta * _chars_per_sec
-	var target_len := min(int(_type_t), _full_text.length())
+	var target_len := mini(int(_type_t), _full_text.length())
 	if target_len > _display_text.length():
 		_display_text = _full_text.substr(0, target_len)
 		line_label.text = _display_text

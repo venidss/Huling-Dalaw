@@ -1187,10 +1187,10 @@ func _make_quad_mesh(a: Vector3, b: Vector3, c: Vector3, d: Vector3) -> ArrayMes
 
 func _add_wall(a: Vector3, b: Vector3, exterior: bool) -> void:
 	# Build a box between the two corners.
-	var size := Vector3(abs(b.x - a.x), abs(b.y - a.y), abs(b.z - a.z))
-	size.x = max(size.x, WALL_THICKNESS)
-	size.y = max(size.y, 0.05)
-	size.z = max(size.z, WALL_THICKNESS)
+	var size := Vector3(absf(b.x - a.x), absf(b.y - a.y), absf(b.z - a.z))
+	size.x = maxf(size.x, WALL_THICKNESS)
+	size.y = maxf(size.y, 0.05)
+	size.z = maxf(size.z, WALL_THICKNESS)
 	var center := (a + b) * 0.5
 	var mat := _mat_wall_exterior if exterior else _mat_wall_interior
 	var wall := _make_box(size, mat)

@@ -15,8 +15,8 @@ func _ready() -> void:
 
 func _init_mist() -> void:
 	_mist_seeds.clear()
-	var w: float = max(1.0, size.x)
-	var h: float = max(1.0, size.y)
+	var w: float = maxf(1.0, size.x)
+	var h: float = maxf(1.0, size.y)
 	for i in 14:
 		_mist_seeds.append({
 			"pos": Vector2(randf() * w, h * randf_range(0.4, 0.9)),
@@ -64,7 +64,7 @@ func _draw() -> void:
 	# House silhouette
 	var house_cx := w * 0.5
 	var house_base_y := h * 0.74
-	var house_w := min(w * 0.28, 420.0)
+	var house_w := minf(w * 0.28, 420.0)
 	var house_h := house_w * 0.52
 	var roof_h := house_w * 0.3
 	var house_poly: PackedVector2Array = PackedVector2Array([

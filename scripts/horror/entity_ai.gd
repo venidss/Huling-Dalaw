@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		State.STALK:
 			_tick_stalk(delta)
 		State.FADE:
-			_fade_t = max(0.0, _fade_t - delta * 0.9)
+			_fade_t = maxf(0.0, _fade_t - delta * 0.9)
 			_set_alpha(_fade_t)
 			if _fade_t <= 0.0:
 				visible = false

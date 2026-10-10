@@ -86,7 +86,7 @@ func _apply_look(delta: Vector2) -> void:
 	if Settings.invert_y:
 		pitch_delta = -pitch_delta
 	pitch -= pitch_delta
-	pitch = clamp(pitch, MIN_PITCH, MAX_PITCH)
+	pitch = clampf(pitch, MIN_PITCH, MAX_PITCH)
 	rotation.y = yaw
 	head.rotation.x = pitch
 
@@ -108,11 +108,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("sprint") and stamina > 0.5 and not is_crouching and input_vec.length() > 0.1:
 		target_speed = sprint_speed
 		is_sprinting = true
-		stamina = max(0.0, stamina - stamina_drain * delta)
+		stamina = maxf(0.0, stamina - stamina_drain * delta)
 		stamina_changed.emit(stamina, max_stamina)
 	else:
 		if stamina < max_stamina:
-			stamina = min(max_stamina, stamina + stamina_regen * delta)
+			stamina = minf(max_stamina, stamina + stamina_regen * delta)
 			stamina_changed.emit(stamina, max_stamina)
 	if is_crouching:
 		target_speed = crouch_speed
@@ -146,11 +146,11 @@ func _update_head_bob(delta: float, moving: bool) -> void:
 	if moving:
 		head_bob_t += delta * head_bob_freq * (1.6 if is_sprinting else 1.0)
 		var amp := head_bob_amp * (1.6 if is_sprinting else 1.0)
-		head.position.y = lerp(head.position.y, 0.65 + sin(head_bob_t) * amp, 10.0 * delta)
-		head.position.x = lerp(head.position.x, cos(head_bob_t * 0.5) * amp * 0.6, 10.0 * delta)
+		head.position.y = lerpf(head.position.y, 0.65 + sin(head_bob_t) * amp, 10.0 * delta)
+		head.position.x = lerpf(head.position.x, cos(head_bob_t * 0.5) * amp * 0.6, 10.0 * delta)
 	else:
-		head.position.y = lerp(head.position.y, 0.65, 8.0 * delta)
-		head.position.x = lerp(head.position.x, 0.0, 8.0 * delta)
+		head.position.y = lerpf(head.position.y, 0.65, 8.0 * delta)
+		head.position.x = lerpf(head.position.x, 0.0, 8.0 * delta)
 
 func _update_interact_ray() -> void:
 	if not interact_ray.enabled:
