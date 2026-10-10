@@ -20,7 +20,7 @@ func has_save() -> bool:
 	if not FileAccess.file_exists(SAVE_PATH):
 		return false
 	# Minimum validity check — file exists and is parseable.
-	var data := _read_file(SAVE_PATH)
+	var data: Variant = _read_file(SAVE_PATH)
 	return data != null and typeof(data) == TYPE_DICTIONARY and data.get("version", 0) == SAVE_VERSION
 
 func save_game() -> bool:
@@ -52,7 +52,7 @@ func save_game() -> bool:
 	return true
 
 func load_game() -> bool:
-	var data := _read_file(SAVE_PATH)
+	var data: Variant = _read_file(SAVE_PATH)
 	if data == null or typeof(data) != TYPE_DICTIONARY:
 		# Try backup if main save is corrupt.
 		data = _read_file(BACKUP_PATH)

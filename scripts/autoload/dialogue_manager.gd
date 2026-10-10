@@ -33,7 +33,7 @@ func _preload_all() -> void:
 	while fname != "":
 		if not dir.current_is_dir() and fname.ends_with(".json"):
 			var id := fname.get_basename()
-			var data := _load_file(DIALOGUE_DIR + fname)
+			var data: Variant = _load_file(DIALOGUE_DIR + fname)
 			if typeof(data) == TYPE_DICTIONARY:
 				dialogues_cache[id] = data
 		fname = dir.get_next()
