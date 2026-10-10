@@ -25,7 +25,7 @@ var fps_target: int = 60
 
 # Gameplay
 var reduce_motion: bool = false       # less camera shake / less screen flash for comfort
-var show_mobile_controls: bool = true # auto-detected on mobile but overridable
+var show_mobile_controls: bool = false # auto-forced on mobile via is_touch_device()
 
 func _ready() -> void:
 	load_settings()
@@ -77,9 +77,9 @@ func save_settings() -> void:
 	cfg.save(SETTINGS_PATH)
 	settings_changed.emit()
 
-## Returns true if we should assume a touch device (Android/iOS or desktop with touch flag).
+## Returns true ONLY on actual mobile platforms. A touchscreen laptop still counts as
+## a desktop — the OS cursor is primary input and the mobile overlay would just hide
+## the camera-look region behind buttons the user doesn't need.
 func is_touch_device() -> bool:
 	var os_name := OS.get_name()
-	if os_name == "Android" or os_name == "iOS":
-		return true
-	return DisplayServer.is_touchscreen_available()
+	return os_name == "Android" or os_name == "iOS"
