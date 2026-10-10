@@ -63,12 +63,33 @@ func _ready() -> void:
 	GameState.register_player(self)
 	stamina = max_stamina
 	footstep_timer.timeout.connect(_on_footstep)
-	if not Settings.is_touch_device():
+	# Only skip mouse capture on actual mobile platforms. Many desktop laptops have
+	# touchscreens AND a mouse — in that case we still want standard FPS controls.
+	if not _is_mobile_platform():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Re-capture the mouse when the game unpauses, release it when it pauses.
+	GameState.paused_changed.connect(_on_paused_changed)
 	# Give the flashlight a sensible default (off until the player picks it up).
 	flashlight.visible = false
 
+func _is_mobile_platform() -> bool:
+	var os_name := OS.get_name()
+	return os_name == "Android" or os_name == "iOS"
+
+func _on_paused_changed(is_paused: bool) -> void:
+	if _is_mobile_platform():
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if is_paused else Input.MOUSE_MODE_CAPTURED
+
 func _unhandled_input(event: InputEvent) -> void:
+	# Left-click anywhere in the game viewport re-captures the mouse on desktop. This
+	# is a universal rescue if the user accidentally alt-tabbed or if the initial
+	# capture didn't take hold on the first frame.
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not _is_mobile_platform() and not GameState.is_paused and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			# Don't fall through to interact on the same click — just capture.
+			return
 	if not can_move:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

@@ -24,6 +24,9 @@ class_name GameHUD
 @onready var subtitle_label: Label = $BottomCenter/SubtitleLabel
 
 func _ready() -> void:
+	# Keep processing while the game is paused so the player can press Esc to unpause
+	# (and so mouse-mode governance continues).
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group("hud")
 	note_viewer.add_to_group("note_readers")
 	code_lock_ui.add_to_group("code_lock_ui")
@@ -64,6 +67,27 @@ func _process(_delta: float) -> void:
 		toggle_journal()
 	elif Input.is_action_just_pressed("dialogue_advance") and DialogueManager.is_playing():
 		dialogue_box.advance()
+	# Centralised mouse-mode governance (desktop only). If any modal UI is open, the
+	# cursor stays visible so the player can click. Otherwise it's captured for FPS
+	# camera rotation.
+	_update_mouse_mode()
+
+func _update_mouse_mode() -> void:
+	var os_name := OS.get_name()
+	if os_name == "Android" or os_name == "iOS":
+		return
+	var want_visible := (
+		GameState.is_paused
+		or DialogueManager.is_playing()
+		or note_viewer.visible
+		or inventory_panel.visible
+		or journal_panel.visible
+		or code_lock_ui.visible
+		or pause_menu.visible
+	)
+	var target := Input.MOUSE_MODE_VISIBLE if want_visible else Input.MOUSE_MODE_CAPTURED
+	if Input.mouse_mode != target:
+		Input.mouse_mode = target
 
 func _on_focus(target: Node) -> void:
 	if target == null:
@@ -130,12 +154,34 @@ func _on_dialogue_started(_id: String) -> void:
 	var p := GameState.current_player
 	if p != null and p.has_method("set_can_move"):
 		p.set_can_move(false)
+	# Release the mouse so the player can click choice buttons on desktop.
+	_release_mouse_for_ui()
 
 func _on_dialogue_finished(_id: String) -> void:
 	dialogue_box.visible = false
 	var p := GameState.current_player
 	if p != null and p.has_method("set_can_move"):
 		p.set_can_move(true)
+	# Return to captured mouse mode on desktop so the camera rotates again.
+	_capture_mouse_for_gameplay()
+
+## Desktop-only helpers: switch the OS mouse mode between the "clickable UI" (visible)
+## and "FPS camera" (captured) states. No-ops on Android/iOS.
+func _release_mouse_for_ui() -> void:
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _capture_mouse_for_gameplay() -> void:
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		return
+	if GameState.is_paused:
+		return
+	# If a modal panel is still open (reading a note, browsing inventory, etc.) keep
+	# the mouse visible so the player can click the X button to close it.
+	if note_viewer.visible or inventory_panel.visible or journal_panel.visible or code_lock_ui.visible or pause_menu.visible:
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # --- public panel toggles ----------------------------------------------------
 
@@ -143,10 +189,12 @@ func toggle_pause() -> void:
 	if pause_menu.visible:
 		pause_menu.hide()
 		GameState.set_paused(false)
+		_capture_mouse_for_gameplay()
 	else:
 		_close_all_panels()
 		pause_menu.show()
 		GameState.set_paused(true)
+		_release_mouse_for_ui()
 
 func toggle_inventory() -> void:
 	if DialogueManager.is_playing():
@@ -154,10 +202,12 @@ func toggle_inventory() -> void:
 	if inventory_panel.visible:
 		inventory_panel.hide()
 		_resume_player()
+		_capture_mouse_for_gameplay()
 	else:
 		_close_all_panels()
 		inventory_panel.show()
 		_block_player()
+		_release_mouse_for_ui()
 
 func toggle_journal() -> void:
 	if DialogueManager.is_playing():
@@ -165,10 +215,12 @@ func toggle_journal() -> void:
 	if journal_panel.visible:
 		journal_panel.hide()
 		_resume_player()
+		_capture_mouse_for_gameplay()
 	else:
 		_close_all_panels()
 		journal_panel.show()
 		_block_player()
+		_release_mouse_for_ui()
 
 func _close_all_panels() -> void:
 	inventory_panel.hide()
