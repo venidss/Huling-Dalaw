@@ -9,7 +9,7 @@ extends Control
 ## The HUD attaches the player reference in _ready through GameState.
 class_name MobileControls
 
-@onready var joystick: VirtualJoystick = $Joystick
+@onready var joystick: DaetJoystick = $Joystick
 @onready var camera_area: TouchCameraArea = $CameraArea
 @onready var btn_interact: Button = $BottomRight/InteractButton
 @onready var btn_flashlight: Button = $BottomRight/FlashlightButton

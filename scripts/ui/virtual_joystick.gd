@@ -7,7 +7,10 @@ extends Control
 ##
 ## Supports multitouch: each joystick stores the touch index that currently controls it so
 ## the right-side camera-look area and the joystick never fight for the same finger.
-class_name VirtualJoystick
+##
+## Renamed from `VirtualJoystick` to `DaetJoystick` because Godot 4.3+ (or an installed
+## addon) ships a native `VirtualJoystick` class that would otherwise shadow this one.
+class_name DaetJoystick
 
 signal direction_changed(dir: Vector2)
 

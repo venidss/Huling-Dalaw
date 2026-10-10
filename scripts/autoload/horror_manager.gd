@@ -9,7 +9,6 @@ extends Node
 ## noise. HorrorEvent subclasses implement the actual visual/audio behavior.
 
 signal event_triggered(id: String)
-signal event_finished(id: String)
 signal screen_flash(color: Color, duration: float)
 signal camera_shake(strength: float, duration: float)
 

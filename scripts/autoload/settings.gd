@@ -79,7 +79,7 @@ func save_settings() -> void:
 
 ## Returns true if we should assume a touch device (Android/iOS or desktop with touch flag).
 func is_touch_device() -> bool:
-	var name := OS.get_name()
-	if name == "Android" or name == "iOS":
+	var os_name := OS.get_name()
+	if os_name == "Android" or os_name == "iOS":
 		return true
 	return DisplayServer.is_touchscreen_available()

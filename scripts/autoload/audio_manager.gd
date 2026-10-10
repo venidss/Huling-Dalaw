@@ -68,23 +68,23 @@ func _set_bus_volume(bus: StringName, linear: float) -> void:
 
 # --- music -------------------------------------------------------------------
 
-func play_music(name: String, fade_in: float = 1.0) -> void:
-	var stream := _load_stream(MUSIC_DIR + name)
+func play_music(stream_name: String, fade_in: float = 1.0) -> void:
+	var stream := _load_stream(MUSIC_DIR + stream_name)
 	if stream == null:
 		return
 	_apply_loop(stream)
 	if _music_player.stream == stream and _music_player.playing:
 		return
 	_music_player.stream = stream
-	_music_player.play()
+	_fade_player(_music_player, fade_in)
 
 func stop_music(fade_out: float = 0.5) -> void:
-	_music_player.stop()
+	_fade_out_player(_music_player, fade_out)
 
 # --- ambience ----------------------------------------------------------------
 
-func play_ambience(name: String, layer: int = 0) -> void:
-	var stream := _load_stream(AMBIENCE_DIR + name)
+func play_ambience(stream_name: String, layer: int = 0, fade_in: float = 1.0) -> void:
+	var stream := _load_stream(AMBIENCE_DIR + stream_name)
 	if stream == null:
 		return
 	_apply_loop(stream)
@@ -92,13 +92,36 @@ func play_ambience(name: String, layer: int = 0) -> void:
 	if player.stream == stream and player.playing:
 		return
 	player.stream = stream
-	player.play()
+	_fade_player(player, fade_in)
 
-func stop_ambience(layer: int = -1) -> void:
+func stop_ambience(layer: int = -1, fade_out: float = 0.5) -> void:
 	if layer == 0 or layer == -1:
-		_ambience_player.stop()
+		_fade_out_player(_ambience_player, fade_out)
 	if layer == 1 or layer == -1:
-		_ambience_layer_player.stop()
+		_fade_out_player(_ambience_layer_player, fade_out)
+
+## Start a player at silence and tween its bus volume up to 0 dB over `duration`.
+func _fade_player(player: AudioStreamPlayer, duration: float) -> void:
+	if player == null:
+		return
+	if duration <= 0.01:
+		player.volume_db = 0.0
+		player.play()
+		return
+	player.volume_db = -40.0
+	player.play()
+	var tween := create_tween()
+	tween.tween_property(player, "volume_db", 0.0, duration)
+
+func _fade_out_player(player: AudioStreamPlayer, duration: float) -> void:
+	if player == null or not player.playing:
+		return
+	if duration <= 0.01:
+		player.stop()
+		return
+	var tween := create_tween()
+	tween.tween_property(player, "volume_db", -40.0, duration)
+	tween.tween_callback(player.stop)
 
 ## Make a stream loop seamlessly. WAVs imported by Godot default to loop_mode=0 (no loop);
 ## we set it to forward loop here so ambience and music beds don't abruptly cut.
@@ -114,10 +137,10 @@ func _apply_loop(stream: AudioStream) -> void:
 
 # --- SFX --------------------------------------------------------------------
 
-func play_sfx(name: String, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
-	if name == "":
+func play_sfx(stream_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
+	if stream_name == "":
 		return
-	var stream := _load_stream(SFX_DIR + name)
+	var stream := _load_stream(SFX_DIR + stream_name)
 	if stream == null:
 		return
 	var player := AudioStreamPlayer.new()
@@ -130,10 +153,10 @@ func play_sfx(name: String, volume_db: float = 0.0, pitch_scale: float = 1.0) ->
 	player.finished.connect(func(): _cleanup_sfx(player))
 	player.play()
 
-func play_sfx_3d(name: String, parent: Node3D, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
-	if name == "" or parent == null or not is_instance_valid(parent):
+func play_sfx_3d(stream_name: String, parent: Node3D, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
+	if stream_name == "" or parent == null or not is_instance_valid(parent):
 		return
-	var stream := _load_stream(SFX_DIR + name)
+	var stream := _load_stream(SFX_DIR + stream_name)
 	if stream == null:
 		return
 	var player := AudioStreamPlayer3D.new()

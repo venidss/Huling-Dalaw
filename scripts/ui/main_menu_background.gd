@@ -29,12 +29,12 @@ func _process(delta: float) -> void:
 	_time += delta
 	if randf() < 0.03:
 		_window_flicker = randf_range(0.6, 1.0)
-	for seed in _mist_seeds:
-		seed.pos.x += seed.vx * delta
-		if seed.pos.x > size.x + 200:
-			seed.pos.x = -200
-		elif seed.pos.x < -200:
-			seed.pos.x = size.x + 200
+	for blob in _mist_seeds:
+		blob.pos.x += blob.vx * delta
+		if blob.pos.x > size.x + 200:
+			blob.pos.x = -200
+		elif blob.pos.x < -200:
+			blob.pos.x = size.x + 200
 	queue_redraw()
 
 func _draw() -> void:
@@ -87,8 +87,8 @@ func _draw() -> void:
 	var win_rect2 := Rect2(house_cx - house_w / 2 + 34, house_base_y - house_h + 20, 36, 36)
 	draw_rect(win_rect2, Color(0.03, 0.02, 0.02))
 	# Mist blobs
-	for seed in _mist_seeds:
-		draw_circle(seed.pos, seed.r, Color(0.5, 0.5, 0.55, seed.a))
+	for blob in _mist_seeds:
+		draw_circle(blob.pos, blob.r, Color(0.5, 0.5, 0.55, blob.a))
 	# Vignette
 	var v_steps := 10
 	for i in v_steps:

@@ -6,7 +6,6 @@ extends Node
 
 signal paused_changed(is_paused: bool)
 signal player_registered(player: Node)
-signal game_over
 
 const ENDING_NONE := 0
 const ENDING_FORGIVENESS := 1    # released the memory, Tala rests
