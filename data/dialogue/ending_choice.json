@@ -3,26 +3,45 @@
   "nodes": {
     "arrive": {
       "speaker": "",
-      "line": "Lumalapit ka sa likod ng altar. Mas malamig dito kaysa sa anumang bahagi ng bahay. May isang maliit na kaha sa sahig — bukas ito.",
-      "line_en": "You approach behind the altar. It is colder here than anywhere else in the house. On the floor is a small box — already open.",
-      "next": "memory"
+      "line": "Umakyat ka ng ilang baitang pababa. Ang hangin, mas malamig. Mas tahimik kaysa sa anumang bahagi ng bahay — kahit hindi mo pa narinig ang tunog mismo ng katahimikan hanggang ngayon.",
+      "line_en": "You step down a few short rungs. The air is colder. More silent than anywhere else in the house — until this moment you had never heard silence itself.",
+      "next": "box"
     },
-    "memory": {
+    "box": {
       "speaker": "",
-      "line": "Sa loob: isang laruang kahoy. Isang kuwintas. At isang nakatiklop na papel na may isang pangalan.",
-      "line_en": "Inside: a wooden toy. A necklace. And a folded paper with a single name.",
+      "line": "Sa loob ng maliit na silid: isang kama na hindi na ginagamit, isang laruang kahoy na hugis isda, isang kuwintas na gawa sa seashell, at isang maliit na kaha na nakabukas na.",
+      "line_en": "Inside the small chamber: a bed no longer used, a wooden fish-shaped toy, a necklace of small seashells, and a small box, already open.",
+      "next": "paper"
+    },
+    "paper": {
+      "speaker": "",
+      "line": "Sa loob ng kaha, isang nakatiklop na papel. May isang salita, sinulat ng isang bata, sa unahan ng papel.",
+      "line_en": "Inside the box, a folded paper. A single word, written in a child's hand, across the front.",
       "next": "name"
     },
     "name": {
-      "speaker": "Alaala",
+      "speaker": "Tala",
       "line": "Tala.",
       "line_en": "Tala.",
+      "actions": [{"type": "play_sfx", "sfx": "gentle_bell.wav"}],
       "next": "voice"
     },
     "voice": {
-      "speaker": "Alaala",
-      "line": "Tinawag mo ako. Alam mo na ang pangalan ko. Ano ngayon ang gagawin mo?",
-      "line_en": "You called me. You know my name now. What will you do?",
+      "speaker": "Tala",
+      "line": "Narito ka. Hindi ka ba natatakot?",
+      "line_en": "You came. Are you not afraid?",
+      "next": "voice_2"
+    },
+    "voice_2": {
+      "speaker": "Apo",
+      "line": "...Kaunti.",
+      "line_en": "...A little.",
+      "next": "voice_3"
+    },
+    "voice_3": {
+      "speaker": "Tala",
+      "line": "Alam ni Lola na nandito ako. Alam ni Lolo. Hindi lang nila alam kung paano makausap ang isang bagay na alam na nilang naroon lagi.\n\nTinawag mo ako sa pangalan ko. Ano ngayon ang gagawin mo?",
+      "line_en": "Lola knew I was here. Lolo did too. They only did not know how to speak to a thing they already knew was always here.\n\nYou spoke my name. What will you do now?",
       "next": "choice"
     },
     "choice": {
@@ -31,8 +50,8 @@
       "line_en": "...",
       "choices": [
         {
-          "text": "Sabihin ang pangalan mo sa Lola at Lolo. Harapin natin ito ng magkasama.",
-          "text_en": "Say your name to Lola and Lolo. Let's face this together.",
+          "text": "Dadalhin ko ang pangalan mo sa taas. Hahanapin ko si Lola at Lolo. Sasabihin ko sa kanila na narito ka.",
+          "text_en": "I will carry your name upstairs. I will find Lola and Lolo. I will tell them you are here.",
           "actions": [
             {"type": "set_ending", "ending": 1},
             {"type": "journal", "text": "Pinili mong sabihin ang pangalan ni Tala."}
@@ -40,8 +59,8 @@
           "next": "forgiveness"
         },
         {
-          "text": "Isara ang kaha. Walang nangyari dito.",
-          "text_en": "Close the box. Nothing happened here.",
+          "text": "Hindi ko dapat nabasa. Isasara ko ang kaha. Hindi mo kailangan ng pagsasabi.",
+          "text_en": "I should not have read it. I will close the box. You don't need the telling.",
           "actions": [
             {"type": "set_ending", "ending": 2},
             {"type": "journal", "text": "Isinarado mo ang kaha."}
@@ -49,8 +68,8 @@
           "next": "buried"
         },
         {
-          "text": "Humawak ng kuwintas. Pumikit.",
-          "text_en": "Hold the necklace. Close your eyes.",
+          "text": "(Humawak sa kuwintas. Pumikit.)",
+          "text_en": "(Hold the necklace. Close your eyes.)",
           "actions": [
             {"type": "set_ending", "ending": 3},
             {"type": "journal", "text": "Hinawakan mo ang kuwintas at hindi ka bumalik."}
@@ -60,22 +79,37 @@
       ]
     },
     "forgiveness": {
+      "speaker": "Tala",
+      "line": "Salamat.\n\nSabihin mo kay Lolo — hindi ko siya kinalimutan. Noong gabing iyon, hindi ko siya narinig dahil masaya ako sa dagat. Hindi niya kasalanan.\n\nSabihin mo kay Lola na gusto kong gawan niya pa ng adobong manok. Minsan.",
+      "line_en": "Thank you.\n\nTell Lolo — I did not forget him. That night, I did not hear him because I was happy by the sea. It was not his fault.\n\nTell Lola I would like her to make adobo for me. Just once.",
+      "next": "forgiveness_end"
+    },
+    "forgiveness_end": {
       "speaker": "",
-      "line": "Nilagay mo ang papel sa iyong bulsa. Tumaas ka. Narinig mo ang mga yabag ni Lola sa pasilyo — para kang hinihintay niyang lumabas.",
-      "line_en": "You put the paper in your pocket. You stand. You hear Lola's footsteps in the hallway — as if she has been waiting for you.",
-      "actions": [{"type": "play_sfx", "sfx": "gentle_bell.wav"}]
+      "line": "Hinawakan mo ang papel. Nilagay sa iyong bulsa. Tumaas ka. Mula sa pasilyo, narinig mong tumitibok ang orasan ni Lola — mabilis, buhay. Hinihintay ka na niya.",
+      "line_en": "You take the paper. You fold it into your pocket. You stand. From the hallway you hear Lola's clock — ticking, alive. She is waiting for you."
     },
     "buried": {
+      "speaker": "Tala",
+      "line": "...Ganun ba? Sige.\n\nMas marami nang nagsarado kaysa sa nagbukas sa akin, apo. Isa pa pala. Hindi masakit. Mas sanay na ako.",
+      "line_en": "...Is that so? Alright.\n\nMore have closed the box than opened it, apo. One more then. It does not hurt. I am used to it.",
+      "next": "buried_end"
+    },
+    "buried_end": {
       "speaker": "",
-      "line": "Sinarado mo ang kaha. Nakalimutan mo ang pangalan na parang hindi mo iyon narinig. Ngunit may pangalan sa iyong hinihinga — kahit na ayaw mong aminin.",
-      "line_en": "You closed the box. You forgot the name as if you never heard it. But a name lingers in your breath — even if you refuse to admit it.",
-      "actions": [{"type": "play_sfx", "sfx": "heartbeat.wav"}]
+      "line": "Sinarado mo ang kaha. Hindi mo kinaya tingnan ang pangalan sa papel. Umakyat ka pabalik, hindi na lumingon.\n\nIsang araw, maghahanda ka ng adobong manok. Hindi mo maiintindihan kung bakit tumulo ang luha mo sa kaldero. Pero hindi mo rin iisipin na tanungin.",
+      "line_en": "You close the box. You cannot bring yourself to look at the name again. You climb back up, you do not look behind.\n\nOne day, you will cook chicken adobo. You will not understand why tears fell into the pot. You will also not think to ask."
     },
     "lost": {
+      "speaker": "Tala",
+      "line": "...Umiinit ba sa iyong palad?\n\nHindi natutunaw ang seashell sa dagat. Hindi natutunaw sa oras. Humahawak lang.",
+      "line_en": "...Is it warm in your palm?\n\nSeashells do not dissolve in the sea. Nor in time. They only hold on.",
+      "next": "lost_end"
+    },
+    "lost_end": {
       "speaker": "",
-      "line": "Humawak ka ng kuwintas. Umaalis ang hangin. Hindi mo na alam kung ikaw ang humahawak o ang kuwintas ang humahawak sa iyo.",
-      "line_en": "You held the necklace. The air left. You no longer know if you held it or it held you.",
-      "actions": [{"type": "play_sfx", "sfx": "deep_rumble.wav"}]
+      "line": "Pumikit ka. Narinig mo ang dagat. Narinig mo ang pangalan mo, hindi binanggit ni Tala — binanggit ng ibang bata, matagal nang panahon.\n\nHindi mo na alam kung sinong humahawak sa iyo o kung sinong hinahawakan mo.",
+      "line_en": "You close your eyes. You hear the sea. You hear your own name — not spoken by Tala, spoken by another child long ago.\n\nYou no longer know who is holding whom."
     }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "start": "s1",
+  "nodes": {
+    "s1": {
+      "speaker": "Boses",
+      "line": "...pang-anim na araw...",
+      "line_en": "...sixth day...",
+      "next": "s2"
+    },
+    "s2": {
+      "speaker": "Boses",
+      "line": "...hindi ako lumunod...",
+      "line_en": "...I did not drown...",
+      "actions": [{"type": "set_flag", "flag": "heard_tala_whisper"}],
+      "next": "s3"
+    },
+    "s3": {
+      "speaker": "Boses",
+      "line": "...binanggit ninyo ang pangalan ko...",
+      "line_en": "...you spoke my name...",
+      "actions": [{"type": "play_sfx", "sfx": "whisper.wav"}]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "start": "s1",
+  "nodes": {
+    "s1": {
+      "speaker": "",
+      "line": "Umupo ka sa mesa. Nakalaan ang tatlong plato. May nakatiklop na table napkin sa ikaapat na upuan — malinis, hindi ginagamit. Hindi mo tinatanong.",
+      "line_en": "You sit at the table. Three plates are set. A folded napkin rests on the fourth chair — clean, unused. You do not ask.",
+      "next": "s2"
+    },
+    "s2": {
+      "speaker": "Lola Pacita",
+      "line": "Kainin niyo na. Sa Daet, pag lumamig ang adobo, lumalakas ang asim. Hindi na masarap.",
+      "line_en": "Eat up. In Daet, when the adobo cools, the sour deepens. It stops being good.",
+      "next": "s3"
+    },
+    "s3": {
+      "speaker": "Lolo Berto",
+      "line": "...Mas masarap kahit lumamig. Pero kakain din ako. Para tahimik ka, Pacita.",
+      "line_en": "...It is better even cold. But I will eat. So you'll be quiet, Pacita.",
+      "next": "s4"
+    },
+    "s4": {
+      "speaker": "Apo",
+      "line": "May kakain pa ba, Lola? May nakalatag na dagdag.",
+      "line_en": "Is someone else coming, Lola? There's an extra setting.",
+      "next": "s5"
+    },
+    "s5": {
+      "speaker": "Lola Pacita",
+      "line": "...Nakasanayan. 'Wag mong pansinin, apo. Kain na.",
+      "line_en": "...Just habit. Don't mind it, apo. Eat.",
+      "actions": [{"type": "set_flag", "flag": "noticed_empty_chair"}],
+      "next": "s6"
+    },
+    "s6": {
+      "speaker": "Lolo Berto",
+      "line": "...Katulad ng dati.",
+      "line_en": "...Same as always.",
+      "next": "s7"
+    },
+    "s7": {
+      "speaker": "",
+      "line": "Kinakain mo ang kanin sa dilim ng sala. Kakaunti ang usapan. Minsan nagtatawanan ka ni Lola, pero huminto si Lolo bago makasali.\n\nSa labas, nagsimula na ang hangin. Darating ang gabi.",
+      "line_en": "You eat your rice in the dim sala. There is little talk. Sometimes you and Lola laugh, but Lolo stops just short of joining.\n\nOutside, the wind has begun. Night is coming.",
+      "actions": [
+        {"type": "set_flag", "flag": "dinner_eaten"}
+      ]
+    }
+  }
+}

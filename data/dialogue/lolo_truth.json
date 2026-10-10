@@ -1,0 +1,60 @@
+{
+  "start": "appear",
+  "nodes": {
+    "appear": {
+      "speaker": "Lolo Berto",
+      "line": "...Nabasa mo na. Alam ko.",
+      "line_en": "...You read it. I know.",
+      "next": "sits_down"
+    },
+    "sits_down": {
+      "speaker": "Lolo Berto",
+      "line": "Isinulat ko ang sulat na iyon lima o anim na taon na ang nakakaraan. Hindi ko alam kung sino ang babasa. Baka kaming dalawa ni Lola — kami lang ang nakakaalam na may ganyang sulat. Ngayon, ikaw na rin.",
+      "line_en": "I wrote that letter five or six years ago. I didn't know who would read it. Perhaps only Lola and I — the only ones who knew it existed. Now, you also.",
+      "next": "ask_why"
+    },
+    "ask_why": {
+      "speaker": "Apo",
+      "line": "Bakit ninyo tinago, Lolo? Dapat alam din ni Nanay.",
+      "line_en": "Why did you hide it, Lolo? Mama should know too.",
+      "next": "answer_1"
+    },
+    "answer_1": {
+      "speaker": "Lolo Berto",
+      "line": "Alam ni Nanay mo. Sinabi sa kanya noong kinse anyos siya. Hindi niya kinaya. Nagalit siya sa amin — hindi dahil ikinubli namin, kundi dahil ipinaalam namin. Mas gusto niyang hindi namin siya ginising sa alaala.",
+      "line_en": "Your Mama knows. We told her when she was fifteen. She couldn't carry it. She was angry with us — not for hiding it, but for telling her. She wished we had not woken the memory.",
+      "actions": [{"type": "set_flag", "flag": "learned_mama_knew"}],
+      "next": "answer_2"
+    },
+    "answer_2": {
+      "speaker": "Lolo Berto",
+      "line": "Kaya umalis siya noong college. Kaya hindi siya umuuwi sa Daet. Kaya hindi niya pinangalanan ikaw ng pangalan ng kahit sino sa pamilya. Umaasa siyang mapuputol ang kadena.",
+      "line_en": "That is why she left for college. Why she does not come home to Daet. Why she did not name you after anyone in our family. She hoped the chain would break.",
+      "next": "apo_question"
+    },
+    "apo_question": {
+      "speaker": "Apo",
+      "line": "At nabasag na ba?",
+      "line_en": "And has it broken?",
+      "next": "answer_3"
+    },
+    "answer_3": {
+      "speaker": "Lolo Berto",
+      "line": "Narito ka, apo. Narito ka sa bahay na ito, nakaupo kaharap ko, nahanap mo ang sulat ko sa unang gabi mo pa lang.\n\nSagutin mo mismo.",
+      "line_en": "You are here, apo. In this house, across from me, finding my letter on your very first night.\n\nAnswer for yourself.",
+      "actions": [{"type": "set_flag", "flag": "lolo_opened_truth"}],
+      "next": "lolo_offer"
+    },
+    "lolo_offer": {
+      "speaker": "Lolo Berto",
+      "line": "May lagusan sa likod ng altar. Ang susi, nasa isang maliit na cabinet doon. Ginawa namin ng Lola mo noong gabing nawala si Tala — alam mo bang maraming taga-Daet ang may ganyang lagusan? Sa dating panahon, para sa pagtago kapag may bagyo. Sa amin, parang tagong kaluluwa.",
+      "line_en": "There is a passage behind the altar. The key is in a small cabinet there. Lola and I built it the night Tala was lost — did you know many Daet houses have such a passage? In the old days, to hide during storms. For us, a hidden soul.",
+      "next": "final_choice_hint"
+    },
+    "final_choice_hint": {
+      "speaker": "Lolo Berto",
+      "line": "Pumunta ka doon kung handa ka na. Hindi na kami hahabol sa iyo, kahit anong piliin mo. Ang pangalan ng kapatid ng Nanay mo — ikaw na ang bahala.",
+      "line_en": "Go there if you are ready. We will not chase you, whatever you choose. The name of your mother's sister — it is yours now."
+    }
+  }
+}

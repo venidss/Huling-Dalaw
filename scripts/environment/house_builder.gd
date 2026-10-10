@@ -297,8 +297,14 @@ func _build_furniture() -> void:
 	_add_tv_cabinet(Vector3(-1, 0.25, 7))
 	# Bookshelf
 	_add_bookshelf(Vector3(-7.6, 0.25, 4.6))
-	# Capiz lamp hanging in center
-	# (handled by lights)
+	# Newspaper clipping on the coffee table — foreshadows the 1973 storm.
+	_add_readable_note(
+		Vector3(-4.2, 0.81, 7),
+		"Diyaryo (klinip)",
+		"BICOL BULLETIN — Agosto 1973\n\nMALAKAS NA UNOS SA DAET\n\nMahigit limang araw na humagupit sa probinsiya ng Camarines Norte ang pinakamalakas na bagyo sa dekada. Nagkaroon ng malalaking alon sa Lucifer Shoal. Marami ang hindi nakauwi, kabilang ang limang bata mula sa iba't ibang pamilya.\n\nTumulong ang mga mangingisda ng barangay sa paghahanap. May dalawang nahanap sa unang linggo. Hindi na nahanap ang iba.\n\n(Nakalagay sa likod ng clipping, isang maliit na sulat-kamay:)\n\n'Hindi lang limang bata. Anim.'",
+		"BICOL BULLETIN — August 1973\n\nSTRONG STORM BATTERS DAET\n\nFor over five days the strongest typhoon of the decade pounded the province of Camarines Norte. Massive waves at Lucifer Shoal. Many did not come home, including five children from different families.\n\nBarangay fishermen aided the search. Two were found in the first week. The others never were.\n\n(On the back of the clipping, in a small handwriting:)\n\n'Not five children. Six.'",
+		"", ""
+	)
 
 	# ===== Dining / Kitchen: X 0 to 8, Z 4 to 10 =====
 	# Dining table + chairs
@@ -309,6 +315,14 @@ func _build_furniture() -> void:
 	_add_fridge(Vector3(7.4, 0.25, 5.0))
 	# Stovetop (visual)
 	_add_stove(Vector3(5, 0.25, 4.6))
+	# Lola's recipe book on the counter — has a marginal note that stays with you.
+	_add_readable_note(
+		Vector3(6, 1.0, 4.9),
+		"Lumang Recipe ni Lola",
+		"ADOBONG MANOK — para sa 4\n\n½ kilong manok, hiniwa\n¼ tasa ng suka ng Daet\n¼ tasa ng toyo\n5 clove ng bawang\n2 dahon ng laurel\nPaminta — kalahating kutsarita\n\nPakuluin sa mahinang apoy ng dalawampung minuto. Hayaang kumulo nang mag-isa — 'wag mong haluin agad, 'yon ang mali ng mga sanay sa Maynila.\n\n(Isang maliit na sulat-kamay sa gilid:)\n\n'Para kay Nita, pag-uwi niya. Para kay Tala — hindi na natin alam kung gusto niya pa.'",
+		"CHICKEN ADOBO — serves 4\n\n½ kilo chicken, cut\n¼ cup Daet vinegar\n¼ cup soy sauce\n5 cloves garlic\n2 bay leaves\nPepper — half a teaspoon\n\nSimmer on low heat for twenty minutes. Let it bubble on its own — do not stir too soon; that's the Manila cook's mistake.\n\n(A small handwritten note in the margin:)\n\n'For Nita when she comes home. For Tala — we no longer know if she'd still want it.'",
+		"", ""
+	)
 
 	# ===== Hallway: X 0 to 8, Z -2 to 4 =====
 	# Family photos on the wall at Z=-2 side (west wall of hallway, X ~= 0).
@@ -327,6 +341,15 @@ func _build_furniture() -> void:
 	# Lola's diary on the nightstand — readable; reading it adds the "diary" item
 	# and completes find_diary. The entries name the year 1973.
 	_add_diary_note(Vector3(-6, 0.9, -1))
+	# A letter from Mama (your mother Nita) tucked inside Lola's bedside — gives
+	# the broader family context when read.
+	_add_readable_note(
+		Vector3(-6.2, 0.9, -0.6),
+		"Sulat ni Nita (iyong Nanay)",
+		"Inay,\n\nSalamat sa padala. Walang nangyayari kakaiba sa Maynila — mga klase, kaunting trabaho. Hindi, hindi pa ako uuwi ngayong Pasko. Patawad.\n\nSabihin mo kay Tatay — alam ko kung ano ang pinagdaanan ninyo. Alam ko simula noong kinse ako. Pero bawat beses na pumapasok ako sa bahay, isinusuksuk ko ang pangalan ng kapatid ko sa dibdib ko at pakiramdam ko mamatay ako.\n\nAng apo ninyo, magaling. Papadalhan ko kayo ng litrato kapag natapos ang ikalawang baitang. Masaya 'yan.\n\nIngat kayo. Mahal ko kayo.\n\n— Nita",
+		"Inay,\n\nThank you for the money. Nothing unusual happens in Manila — classes, a little work. No, I won't be home this Christmas. I'm sorry.\n\nTell Tatay — I know what you both went through. I've known since I was fifteen. But every time I set foot in that house, I tuck my sister's name into my chest and feel I will die.\n\nYour grandchild is doing well. I'll send a photo when the second grade ends. A happy one.\n\nTake care of yourselves. I love you.\n\n— Nita",
+		"", ""
+	)
 	# Empty wardrobe/dresser nearby.
 	_add_dresser_with_item(Vector3(-2, 0.25, -1.4), "", "")
 
@@ -339,12 +362,28 @@ func _build_furniture() -> void:
 	_add_bookshelf(Vector3(0.6, 0.25, -7.6))
 	# A hidden letter from Lolo stashed on the desk — the room's final piece of context.
 	_add_lolos_letter(Vector3(2, 0.76, -6.2))
+	# A smaller note next to the letter — Tala's school report card.
+	_add_readable_note(
+		Vector3(2.5, 0.76, -5.9),
+		"Report Card — Tala",
+		"GRADE 2 — 1972-1973\n\nFilipino: 95\nMath: 88\nScience: 92\nSibika: 95\nMusika: 100 (May natatanging talento sa pagkanta ng Pilipinong awitin.)\n\nKonduktah: Mahiyain, mabait. Mahilig umupo sa dulo ng silid, malapit sa bintana. Minsan humihingi ng pahintulot na lumabas kapag may bagyong parating — sabi niya, gusto niyang pakinggan ang hangin.",
+		"GRADE 2 — 1972-1973\n\nFilipino: 95\nMath: 88\nScience: 92\nCivics: 95\nMusic: 100 (Shows exceptional talent singing Filipino folk songs.)\n\nConduct: Shy, kind. Loves to sit at the back of the room, close to the window. Sometimes asks permission to go outside when a storm approaches — she says she wants to listen to the wind.",
+		"", ""
+	)
+	# Tala's crayon drawing — a small square taped to the wall.
+	_add_readable_note(
+		Vector3(1, 0.25 + 1.3, -8 + WALL_THICKNESS * 0.6),
+		"Guhit (Krayola)",
+		"[Isang drawing ng isang bata — apat na tao: isang babaeng matanda, isang lalaking matanda, dalawang bata. Nakasulat sa ibaba:]\n\n'Mama, Papa, Ate Nita, ako. 1972.'\n\n[Pinasa sa isa pang pahina:]\n\n'Papunta kami sa dagat bukas. Dadalhin ko ang kuwintas ko.'",
+		"[A child's drawing — four people: an older woman, an older man, two children. At the bottom:]\n\n'Mama, Papa, Big Sister Nita, me. 1972.'\n\n[Scrawled on another page:]\n\n'We are going to the sea tomorrow. I will bring my necklace.'",
+		"", ""
+	)
 	# Photograph on the back wall (changes after the player sets a flag).
-	var locked_photo := _add_photo_frame(Vector3(2, 0.25 + 1.6, -8 + WALL_THICKNESS * 0.6), 0.0, 0.6, 0.4)
+	var locked_photo := _add_photo_frame(Vector3(4, 0.25 + 1.6, -8 + WALL_THICKNESS * 0.6), 0.0, 0.6, 0.4)
 	locked_photo.caption = "Si Tala, 1972."
 	locked_photo.caption_en = "Tala, 1972."
-	locked_photo.alt_caption = "Si Tala, 1972. Nawala siya pagkatapos ng ilang buwan."
-	locked_photo.alt_caption_en = "Tala, 1972. She disappeared a few months later."
+	locked_photo.alt_caption = "Si Tala, 1972. Nawala siya pagkatapos ng ilang buwan.\n\nSi Nita (iyong Nanay), ang mga magulang, at si Tala. Hindi mo ito nakita noong una."
+	locked_photo.alt_caption_en = "Tala, 1972. She disappeared a few months later.\n\nNita (your Mama), the parents, and Tala. You did not see this before."
 	locked_photo.change_flag = "learned_about_tala"
 
 	# ===== Storage: X 8 to 14, Z -8 to -2 =====
@@ -355,6 +394,14 @@ func _build_furniture() -> void:
 		add_child(b)
 	# A single fuse hidden among the boxes.
 	_add_fuse_pickup(Vector3(13, 0.9, -4))
+	# Earlier letter from Mama in a tin box — chronologically from her college years.
+	_add_readable_note(
+		Vector3(9, 0.76, -4.5),
+		"Lumang Sulat ni Nita (1990)",
+		"Mama, Papa,\n\nNa-admit ako sa UP. Ipapadala ko ang resibo. Hindi ko dapat sinabi noong hapunan — nakita kong tumulo ang luha mo, Mama, at nagsisi ako.\n\nPero kailangan ko umalis sa Daet. Hindi ko kayo iniiwan. Iniiwan ko lang ang bahay. May kaibahan 'yon.\n\nKung paano kayo tumatawid sa dagat tuwing umaga para huminga, ganun din ako — kailangan kong lumikas sa kalaliman nitong bahay para huminga. Hindi niyo kasalanan.\n\nIntindihin niyo sana.\n\n— Nita",
+		"Mama, Papa,\n\nI was accepted at UP. I'll send the receipt. I shouldn't have said it at dinner — I saw you tear up, Mama, and I'm sorry.\n\nBut I have to leave Daet. I'm not leaving you. I'm only leaving the house. There's a difference.\n\nThe way you cross to the sea each morning to breathe — I need to do the same, but out of this house. It's not your fault.\n\nPlease understand.\n\n— Nita",
+		"", ""
+	)
 
 	# ===== Altar room: X -8 to 5, Z -8 to -2 =====
 	# Altar table along the back wall
@@ -364,6 +411,22 @@ func _build_furniture() -> void:
 	# Prayer box with the code lock — code 1973 (the year of the storm). Opening it gives
 	# the family photo of Tala + the key to the locked room.
 	_add_code_lock_box(Vector3(-3, 0.25 + 0.95, -7.3))
+	# Prayer booklet on the altar — a soft, almost tender devotional with Tala's name.
+	_add_readable_note(
+		Vector3(-2.3, 0.25 + 0.95, -7.3),
+		"Oracion (sulat-kamay)",
+		"Panginoon, pagpalain mo si Berto. Pagpalain mo si Pacita. Pagpalain mo si Nita, kung saan man siya ngayong gabi.\n\nAt — ikaw na humahanap sa dagat ng limang araw, humawak sa isang maliit na puso na hindi lumikha ng kasalanan — pagpalain mo si Tala.\n\nIkaw ang nag-utos ng unos. Hindi natin masisi ang nagwakas.\n\nAmen.",
+		"Lord, bless Berto. Bless Pacita. Bless Nita, wherever she is tonight.\n\nAnd — You who searched the sea for five days, who held one small heart that bore no sin — bless Tala.\n\nYou commanded the storm. We cannot blame what it ended.\n\nAmen.",
+		"", ""
+	)
+	# Birthday card tucked into the altar — from a girl to her father, 1972.
+	_add_readable_note(
+		Vector3(-3.5, 0.25 + 0.95, -7.1),
+		"Birthday Card",
+		"PARA KAY TATAY — HAPPY BIRTHDAY!\n\nMahal kita hanggang sa dagat at bumalik. Hanggang sa ulap at bumalik. Hanggang sa Daet at hindi na bumalik — pero bumalik pa rin dahil ikaw ang katapat.\n\nIminulat ni ate kung paano magsulat ng ganito. Ako lang ang nag-krayola ng tatay sa ibabaw.\n\n— Tala, 7 anyos",
+		"TO TATAY — HAPPY BIRTHDAY!\n\nI love you to the sea and back. To the clouds and back. To Daet and not back — but back anyway because you are what's across.\n\nSister showed me how to write this. I'm the one who crayoned the dad on top.\n\n— Tala, age 7",
+		"", "found_birthday_card"
+	)
 	# Behind the altar: the hidden passage door (reveals after find_passage mission).
 	altar_passage_door_ref = _add_door_locked(
 		Vector3(-3, 0.25, -8 + WALL_THICKNESS / 2.0),
@@ -769,6 +832,33 @@ func _add_code_lock_box(pos: Vector3) -> void:
 	root.set("spawn_items", ["photo_tala", "key_locked_room"] as Array[String])
 	root.set("completes_mission", "diary_puzzle")
 	add_child(root)
+
+## Generic helper to place a readable note in the world. Returns the node for optional extra config.
+func _add_readable_note(pos: Vector3, title: String, tagalog: String, english: String, adds_item: String = "", story_flag: String = "", visual_size: Vector3 = Vector3(0.25, 0.03, 0.3)) -> Node:
+	var root := StaticBody3D.new()
+	root.set_script(load("res://scripts/interaction/note.gd"))
+	root.name = "Note_" + title.replace(" ", "_").left(16)
+	root.position = pos
+	var mesh := MeshInstance3D.new()
+	var box := BoxMesh.new()
+	box.size = visual_size
+	mesh.mesh = box
+	mesh.material_override = _mat_paper
+	root.add_child(mesh)
+	var col := CollisionShape3D.new()
+	var bs := BoxShape3D.new()
+	bs.size = visual_size * 1.3
+	col.shape = bs
+	root.add_child(col)
+	root.set("title", title)
+	root.set("tagalog_text", tagalog)
+	root.set("english_text", english)
+	if adds_item != "":
+		root.set("adds_item", adds_item)
+	if story_flag != "":
+		root.set("story_flag_to_set", story_flag)
+	add_child(root)
+	return root
 
 func _add_diary_note(pos: Vector3) -> void:
 	# A readable "note" that is also the diary pickup — reading it shows the entries,

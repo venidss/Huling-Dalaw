@@ -1,0 +1,34 @@
+{
+  "start": "appear",
+  "nodes": {
+    "appear": {
+      "speaker": "Lolo Berto",
+      "line": "Hihinto ka ba, apo?",
+      "line_en": "Will you stop, apo?",
+      "next": "note"
+    },
+    "note": {
+      "speaker": "Lolo Berto",
+      "line": "Hindi para pigilan. Hihinto lang para tingnan ko ang mukha mo bago ka bumaba. Para kapag may dumating sa likod ng altar, matatandaan ko kung paano ka ngumiti noong hindi mo pa nalalaman.",
+      "line_en": "Not to stop you. Only so I can see your face before you go down. So when something comes up behind the altar, I will remember how you smiled before you knew.",
+      "next": "silent_apo"
+    },
+    "silent_apo": {
+      "speaker": "Apo",
+      "line": "...",
+      "line_en": "...",
+      "next": "pardon"
+    },
+    "pardon": {
+      "speaker": "Lolo Berto",
+      "line": "Kung may makakausap ka doon — sabihin mo na patawad ako. Hindi dahil kinakailangan niyang patawarin ako. Dahil hindi ko kayang bitawan ang katagang 'yon mag-isa, matagal nang panahon.",
+      "line_en": "If you speak to someone down there — tell her I'm sorry. Not because she needs to forgive me. Because I cannot carry that word alone any longer.",
+      "actions": [{"type": "set_flag", "flag": "lolo_asked_pardon"}],
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Lolo Berto",
+      "line": "Sige na, apo. Mabigat ang pinto sa dulo. Kailangan mong hilahin, hindi itulak."
+    }
+  }
+}

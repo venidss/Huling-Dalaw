@@ -1,6 +1,6 @@
 extends Node
 ## Gameplay-scene controller. Wires up systems that need runtime cross-references
-## (fuse-flag gating, time-of-day shift, intro sequencing).
+## (fuse-flag gating, time-of-day shift, intro sequencing, scripted story beats).
 ##
 ## Attached to the gameplay root. Expects the HouseBuilder as a child named "House"
 ## and the Player and HUD as siblings.
@@ -10,7 +10,12 @@ class_name GameController
 @onready var player: Node3D = $Player
 @onready var hud: Node = $HUD
 
-var _intro_played: bool = false
+# One-shot guards for scripted dialogue beats.
+var _dinner_played: bool = false
+var _tala_whisper_played: bool = false
+var _lolo_truth_played: bool = false
+var _lola_confrontation_played: bool = false
+var _lolo_passage_played: bool = false
 
 func _ready() -> void:
 	# Register this scene as the "current level" so other systems can find us.
@@ -24,8 +29,11 @@ func _ready() -> void:
 	if not GameState.restored_from_save and player.has_method("set_yaw"):
 		player.set_yaw(deg_to_rad(180))
 	GameState.restored_from_save = false  # reset for next transition
-	# Reserved — flag_set hook kept for future use.
+	# Hook mission + inventory + dialogue signals so we can insert scripted scene beats.
 	MissionManager.flag_set.connect(_on_flag_set)
+	MissionManager.mission_completed.connect(_on_mission_completed)
+	Inventory.item_added.connect(_on_item_added)
+	DialogueManager.dialogue_finished.connect(_on_dialogue_finished)
 	# Start the opening ambience.
 	AudioManager.play_ambience("night_insects.wav")
 	AudioManager.play_ambience("night_wind.wav", 1)
@@ -36,29 +44,64 @@ func _ready() -> void:
 	await get_tree().create_timer(0.6).timeout
 	if MissionManager.current_mission_id == "" or MissionManager.current_mission_id == MissionManager.missions[0].id:
 		MissionManager.start_mission("arrive")
-	# After mission 'greet_lola' completes, Lolo becomes available and the house darkens.
-	MissionManager.mission_completed.connect(_on_mission_completed)
-	# Signal that the fuse box should start dark (lights off) once we reach mission "restore_power".
 
-func _on_flag_set(_flag: String, _val: Variant) -> void:
-	# Hook kept for future flag-driven lighting changes. The fuse flow is self-contained:
-	# the switch script checks the "fuse_installed" flag before letting the player flip it,
-	# and the switch itself turns the hall lights on. No separate reaction needed here.
-	pass
+func _on_flag_set(flag: String, _val: Variant) -> void:
+	# When the player sets 'learned_about_tala' (by reading Lolo's letter), queue the
+	# Lolo truth scene — Lolo appears nearby a moment later.
+	if flag == "learned_about_tala" and not _lolo_truth_played:
+		_lolo_truth_played = true
+		await get_tree().create_timer(1.0).timeout
+		if not DialogueManager.is_playing():
+			DialogueManager.start("lolo_truth")
+
+func _on_item_added(item: Dictionary) -> void:
+	var id := String(item.get("id", ""))
+	# Picking up the diary triggers Tala's first whisper after a long enough delay for
+	# the player to have likely closed the note viewer first.
+	if id == "diary" and not _tala_whisper_played:
+		_tala_whisper_played = true
+		await get_tree().create_timer(3.0).timeout
+		HorrorManager.flash_screen(Color(0.05, 0.0, 0.0, 0.3), 0.6)
+		HorrorManager.shake_camera(0.08, 0.4)
+		DialogueManager.start("tala_whisper")
+	# Picking up the locked-room key: Lola intercepts the player with the confrontation
+	# dialogue (unless they already heard it).
+	elif id == "key_locked_room" and not _lola_confrontation_played:
+		_lola_confrontation_played = true
+		await get_tree().create_timer(1.5).timeout
+		DialogueManager.start("lola_confrontation")
+	# Picking up the passage key: Lolo appears at the altar for his final words.
+	elif id == "key_passage" and not _lolo_passage_played:
+		_lolo_passage_played = true
+		await get_tree().create_timer(1.0).timeout
+		DialogueManager.start("lolo_passage")
+
+func _on_dialogue_finished(id: String) -> void:
+	# After the Lolo intro, play the dinner scene before nightfall logic kicks in.
+	if id == "lolo_intro" and not _dinner_played:
+		_dinner_played = true
+		await get_tree().create_timer(0.4).timeout
+		DialogueManager.start("dinner_scene")
+	# After dinner, actually shift to night and progress.
+	elif id == "dinner_scene":
+		# meet_lolo is already completed by lolo_intro; _shift_to_night was deferred.
+		_shift_to_night()
 
 func _on_mission_completed(mission: Dictionary) -> void:
 	var id: String = String(mission.get("id", ""))
 	match id:
 		"meet_lolo":
-			# Nightfall. Dim the main lights, trigger a soft audio cue, drop an object.
-			_shift_to_night()
+			# Don't shift to night immediately — wait for dinner_scene to finish via
+			# _on_dialogue_finished. The dinner is triggered by lolo_intro finishing.
+			pass
 		"night_noise":
 			# Hallway lights falter after the player investigates.
 			for l in house.hall_lights:
 				if l is Light3D:
 					l.light_energy = 0.4
 		"diary_puzzle":
-			# The code lock gave the key_locked_room. Prompt the next step.
+			# The code lock gave the key_locked_room (and the Lola confrontation will
+			# play from _on_item_added when that key is added to the inventory).
 			if hud.has_method("show_subtitle"):
 				hud.show_subtitle("May susi ka na. Buksan ang nakakandadong silid.")
 		"enter_locked_room":

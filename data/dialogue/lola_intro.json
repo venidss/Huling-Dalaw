@@ -3,56 +3,81 @@
   "nodes": {
     "greet": {
       "speaker": "Lola Pacita",
-      "line": "Apo! Nakarating ka na. Pumasok ka na, maaliwalas ang bahay.",
-      "line_en": "Child! You're here. Come in, the house is calm.",
+      "line": "Apo! Diyos ko, lumaki ka na. Lumapit ka nga sa akin.",
+      "line_en": "Child! My goodness, you've grown. Come closer.",
+      "next": "hug"
+    },
+    "hug": {
+      "speaker": "Lola Pacita",
+      "line": "Mabigat ka pa rin kahit payat. Nahulog yata ang bagahe mo sa dalawang kalsada. Pasok ka na, umuulan nga pala kagabi, basa pa ang eskalera.",
+      "line_en": "Still heavy for someone so thin. Looks like your bag survived two highways. Come in — it rained last night, the steps are still wet.",
+      "next": "warn_rain"
+    },
+    "warn_rain": {
+      "speaker": "Lola Pacita",
+      "line": "Sa Daet, umuulan nang walang tanong. Lagi kang may dala ng chinelas. Payong din kung puwede.",
+      "line_en": "In Daet, the rain doesn't ask. Always carry slippers. An umbrella too, if you can.",
       "next": "offer_food"
     },
     "offer_food": {
       "speaker": "Lola Pacita",
-      "line": "May nagluto na akong adobong manok at kanin. Kain muna tayo mamaya, 'wag ka magpapagutom.",
-      "line_en": "I made chicken adobo and rice. We'll eat later. Don't go hungry.",
+      "line": "Nagluto ako ng adobong manok. Hinati ko sa dalawa — isa para sa iyo, isa para kay Lolo mo. Pero madalas, hindi na kumakain si Lolo. Napatatawa pa ba kayong dalawa?",
+      "line_en": "I made chicken adobo. Split it in two — one for you, one for Lolo. But often, your Lolo doesn't eat. Can you two still make each other laugh?",
       "next": "ask_choice"
     },
     "ask_choice": {
       "speaker": "Apo",
-      "line": "Salamat, Lola. Ang tagal ko nang hindi nakakapunta rito. May itatanong sana ako...",
-      "line_en": "Thank you, Lola. It's been so long since I've visited. I was hoping to ask something...",
+      "line": "Salamat, Lola. Matagal na akong hindi nakakapunta rito. Kumusta ba kayo?",
+      "line_en": "Thank you, Lola. It's been a long time. How have you both been?",
       "choices": [
         {"text": "Kumusta na si Lolo?", "text_en": "How is Lolo?", "next": "about_lolo"},
-        {"text": "Kanino 'yung mga lumang litrato sa pader?", "text_en": "Who's in the old photos on the wall?", "next": "about_photos"},
+        {"text": "Mga litrato sa pader — kanino 'yun?", "text_en": "The photos on the wall — who are they?", "next": "about_photos"},
         {"text": "May lumang silid ba rito?", "text_en": "Is there an old room here?", "next": "about_room"}
       ]
     },
     "about_lolo": {
       "speaker": "Lola Pacita",
-      "line": "Nasa dining room si Lolo mo. Kaunting malamig na siya kay sa dati. Puro bintana lang tinitingnan.",
-      "line_en": "Your Lolo is in the dining room. He's a little quieter now than before. He just looks out the window.",
+      "line": "Nasa hapag si Lolo mo. Hindi tulog, hindi gising. Mga lalaking matanda... minsan hindi nila alam kung saan sila dapat tumingin. Baka kapag ikaw ang kaharap, matingnan niya ulit ang mga tao.",
+      "line_en": "Lolo is at the table. Not asleep, not awake. Old men... sometimes they don't know where they should be looking. Maybe when you're across from him, he'll look at people again.",
       "next": "ask_choice"
     },
     "about_photos": {
       "speaker": "Lola Pacita",
-      "line": "Pamilya natin lahat 'yan. 'Wag mo na masyado tingnan — iniligpit ko na dapat 'yun. Mga lumang araw na.",
-      "line_en": "That's all our family. Don't look too closely — I should have put those away. Old days.",
+      "line": "Pamilya natin lahat 'yan. Ang nasa gilid, mga pinsan ng Lolo mo. Ang nasa gitna... iyong batang babae... iniligpit ko sana 'yung litrato na 'yon. Lumang araw na.",
+      "line_en": "That's all our family. On the edges, Lolo's cousins. In the middle... the little girl... I should have put that photo away. Old days.",
       "actions": [{"type": "set_flag", "flag": "lola_cagey"}],
+      "next": "ask_about_girl"
+    },
+    "ask_about_girl": {
+      "speaker": "Apo",
+      "line": "Sino 'yung bata, Lola?",
+      "line_en": "Who was the girl, Lola?",
+      "next": "deflect_girl"
+    },
+    "deflect_girl": {
+      "speaker": "Lola Pacita",
+      "line": "...Ibang pamilya. Isinama lang sa larawan noong Pasko. Hindi natin kakilala. Isa pa, nabasa ko sa diyaryo kahapon na may bagyo na parating. Mag-iingat ka sa labas.",
+      "line_en": "...Another family. Just added to the photo at Christmas. We don't know them. Besides, I read in the paper yesterday a storm is coming. Be careful outside.",
+      "actions": [{"type": "set_flag", "flag": "lola_lied_about_photo"}],
       "next": "ask_choice"
     },
     "about_room": {
       "speaker": "Lola Pacita",
-      "line": "Pakinggan mo ako, apo. May isang silid dito sa tabi ng pasilyo. Nakakandado. 'Wag mong buksan. Pangako mo sa akin.",
-      "line_en": "Listen to me, apo. There is a room by the hallway. It is locked. Do not open it. Promise me.",
+      "line": "Pakinggan mo ako, apo. May isang silid dito sa tabi ng pasilyo. Nakakandado. 'Wag mong buksan. Pangako mo sa akin, kahit anong marinig mo mamayang gabi.",
+      "line_en": "Listen to me, apo. There is a room by the hallway. It is locked. Do not open it. Promise me — no matter what you hear tonight.",
       "actions": [{"type": "set_flag", "flag": "lola_warning"}],
       "next": "pact"
     },
     "pact": {
       "speaker": "Apo",
-      "line": "Opo, Lola.",
-      "line_en": "Yes, Lola.",
+      "line": "Opo, Lola. Promise.",
+      "line_en": "Yes, Lola. I promise.",
       "next": "flashlight"
     },
     "flashlight": {
       "speaker": "Lola Pacita",
-      "line": "Dito, kunin mo ang flashlight ko. Minsan nawawala ang kuryente dito sa Daet, lalo na kapag gabi.",
-      "line_en": "Here, take my flashlight. Sometimes we lose power here in Daet, especially at night.",
+      "line": "Mabuti. Dito, kunin mo ang flashlight ko. Pinalitan ko ng bagong baterya. Nawawala ang kuryente kapag umuulan — matagal na 'yan, sanay na kami, pero ikaw hindi.",
+      "line_en": "Good. Here, take my flashlight. I put in a fresh battery. Power goes out when it rains — that's been happening for years, we're used to it, you aren't.",
       "actions": [
         {"type": "add_item", "item": "flashlight"},
         {"type": "complete_mission", "mission": "greet_lola"},
@@ -62,8 +87,8 @@
     },
     "end": {
       "speaker": "Lola Pacita",
-      "line": "Pahinga ka na. Umulan din kagabi. Maraming lamok, mag-ingat ka.",
-      "line_en": "Rest a little. It rained last night. There are mosquitoes — be careful."
+      "line": "Pumasok ka na. Tingnan mo ang sala — may kape at biskwit. Mag-usap kayo ni Lolo mo pagkatapos. Pagka gabi na, dumiretso ka sa iyong silid at matulog. Pangako.",
+      "line_en": "Come inside. Have a look at the sala — there's coffee and biscuits. Talk to Lolo after. When night comes, go straight to your room and sleep. Promise."
     }
   }
 }

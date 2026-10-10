@@ -118,6 +118,13 @@ func _on_camera_shake(strength: float, duration: float) -> void:
 	tween.tween_property(head, "position", original, 0.05)
 
 func _on_dialogue_started(_id: String) -> void:
+	# Dismiss any UI that could render in front of the dialogue (note viewer, inventory,
+	# etc.). The code-lock UI is also closed because scripted dialogues can fire right
+	# after a code lock unlocks and spawns an item.
+	note_viewer.hide()
+	inventory_panel.hide()
+	journal_panel.hide()
+	code_lock_ui.hide()
 	dialogue_box.visible = true
 	# Lock player movement during dialogue for story focus.
 	var p := GameState.current_player

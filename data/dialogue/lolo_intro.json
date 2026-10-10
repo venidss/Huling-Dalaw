@@ -3,39 +3,56 @@
   "nodes": {
     "greet": {
       "speaker": "Lolo Berto",
-      "line": "...Apo. Umupo ka.",
-      "line_en": "...Apo. Sit down.",
+      "line": "...Apo.",
+      "line_en": "...Apo.",
       "next": "pause"
     },
     "pause": {
       "speaker": "Lolo Berto",
-      "line": "...",
-      "line_en": "...",
-      "next": "ask"
+      "line": "Nakabalik ka. Umupo ka. May kape doon, kung mainit pa.",
+      "line_en": "You came back. Sit. There's coffee if it's still warm.",
+      "next": "look_outside"
     },
-    "ask": {
-      "speaker": "Apo",
-      "line": "Lolo, bakit po tulala ka?",
-      "line_en": "Lolo, why are you so distant?",
-      "next": "reply"
-    },
-    "reply": {
+    "look_outside": {
       "speaker": "Lolo Berto",
-      "line": "Tinitingnan ko ang hardin. Alam mo, dati maraming bata rito. Mga pinsan mo. Si... hindi na mahalaga.",
-      "line_en": "I'm looking at the garden. You know, there used to be children here. Your cousins. And... never mind.",
-      "actions": [{"type": "set_flag", "flag": "lolo_slip"}],
-      "next": "offer"
+      "line": "Tinitingnan ko ang hardin. Minsan... pakiramdam ko may hinihintay ako doon. Alam mo na — ganyan ang matanda. Ang isip, nananatili sa isang lugar kahit umaalis na ang katawan.",
+      "line_en": "I'm watching the garden. Sometimes... I feel like I'm waiting for someone there. You know how old people are. The mind stays in one place even when the body leaves.",
+      "next": "ask_choice"
     },
-    "offer": {
+    "ask_choice": {
       "speaker": "Apo",
-      "line": "Sino po 'yung iba?",
-      "line_en": "Who are the others?",
+      "line": "Lolo, bakit po ganito ka?",
+      "line_en": "Lolo, why are you like this?",
+      "choices": [
+        {"text": "Dati, ikaw ang pinaka-masayahin.", "text_en": "You used to be the funniest of us.", "next": "funny"},
+        {"text": "May iniintay ka ba talaga?", "text_en": "Are you really waiting for someone?", "next": "waiting"},
+        {"text": "May problema ba ninyo ni Lola?", "text_en": "Is something wrong with you and Lola?", "next": "lola"}
+      ]
+    },
+    "funny": {
+      "speaker": "Lolo Berto",
+      "line": "Oo, dati. Marami akong kuwento noong bata ka pa. Alam mo bakit tumigil ako? Dahil ang mga kuwento, pumupunta sa isang lugar. At iyong isang lugar na 'yon, hindi na ako puwede.",
+      "line_en": "Yes, once. I had so many stories when you were small. You know why I stopped? Stories lead to a place. And that place — I'm no longer allowed in it.",
+      "actions": [{"type": "set_flag", "flag": "lolo_opened_slightly"}],
+      "next": "deflect"
+    },
+    "waiting": {
+      "speaker": "Lolo Berto",
+      "line": "Hindi mahalaga sino. Ang mahalaga, naghihintay pa rin. Ganun minsan ang katandaan — tinuturuan tayong tumingin sa labas kahit alam natin na walang lalabas.",
+      "line_en": "It doesn't matter who. What matters is that I'm still waiting. That's old age sometimes — it teaches you to look outside even when you know no one will come out.",
+      "actions": [{"type": "set_flag", "flag": "lolo_waits_for_someone"}],
+      "next": "deflect"
+    },
+    "lola": {
+      "speaker": "Lolo Berto",
+      "line": "Si Lola mo? Mahal na mahal ko si Lola mo. Pero may mga gabi na hindi kami nagkakausap. Hindi dahil galit — dahil pareho kaming walang masabi.",
+      "line_en": "Your Lola? I love your Lola. But there are nights when we don't speak. Not out of anger — because we both have nothing to say.",
       "next": "deflect"
     },
     "deflect": {
       "speaker": "Lolo Berto",
-      "line": "Matanda na ako. Nagkakamali ng pangalan. Pumasok ka na, apo. Mamaya na ang usapan.",
-      "line_en": "I'm old. I mix up names. Go inside, apo. We'll talk later.",
+      "line": "Pumasok ka na, apo. Mamaya kakausapin kita ulit. Matagal akong hindi nagsalita, kaya marami akong dapat iayos sa salita.",
+      "line_en": "Go inside, apo. We'll talk again later. I've been quiet a long time — I need to put my words back together.",
       "actions": [
         {"type": "complete_mission", "mission": "meet_lolo"}
       ],
@@ -43,8 +60,8 @@
     },
     "end": {
       "speaker": "Lolo Berto",
-      "line": "Kung may maririnig kang kalampag mamayang gabi — 'wag mong pansinin.",
-      "line_en": "If you hear a noise tonight — don't pay attention to it."
+      "line": "Isa pa, apo. Kung may maririnig kang kalampag sa gabi — footsteps, buksan ng pinto, tinig ng bata — 'wag mong tingnan.\n\n'Wag mong isagot.",
+      "line_en": "One more thing, apo. If you hear a sound tonight — footsteps, a door opening, a child's voice — don't look.\n\nDon't answer."
     }
   }
 }

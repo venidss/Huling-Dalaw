@@ -1,0 +1,90 @@
+{
+  "start": "appear",
+  "nodes": {
+    "appear": {
+      "speaker": "Lola Pacita",
+      "line": "Tumigil ka diyan, apo.",
+      "line_en": "Stop there, apo.",
+      "next": "slow_walk"
+    },
+    "slow_walk": {
+      "speaker": "Lola Pacita",
+      "line": "May susi ka na, ano? Nakita ko ang kamay mo. Palabas ka pa, pero nasa bulsa mo na iyon.",
+      "line_en": "You have a key, don't you? I saw your hand. You were walking out, but it was already in your pocket.",
+      "next": "deny_or_confess"
+    },
+    "deny_or_confess": {
+      "speaker": "Apo",
+      "line": "...",
+      "line_en": "...",
+      "choices": [
+        {
+          "text": "Opo, Lola. Nasa bulsa ko na.",
+          "text_en": "Yes, Lola. It's in my pocket.",
+          "actions": [{"type": "set_flag", "flag": "confessed_to_lola"}],
+          "next": "confess_reply"
+        },
+        {
+          "text": "Walang pakialam ka, Lola. Alam ko na.",
+          "text_en": "You don't need to worry, Lola. I know now.",
+          "actions": [{"type": "set_flag", "flag": "pushed_through_lola"}],
+          "next": "push_reply"
+        },
+        {
+          "text": "(Manahimik. Hintayin siya.)",
+          "text_en": "(Stay quiet. Wait for her.)",
+          "next": "silence_reply"
+        }
+      ]
+    },
+    "confess_reply": {
+      "speaker": "Lola Pacita",
+      "line": "...Mabuti pang sabihin mo. Alam ko ang susi na iyon ay hindi lang bakal, apo. Bawat sariwang kamay na humahawak diyan, dala-dala ang pagkakamali ng isa pang kamay.",
+      "line_en": "...Better that you say it. I know that key is more than metal, apo. Every new hand that holds it carries another hand's mistake.",
+      "next": "lola_truth_begin"
+    },
+    "push_reply": {
+      "speaker": "Lola Pacita",
+      "line": "Hindi mo alam. Hindi mo pa alam. Pero kung desidido ka, hindi na kita mapipigilan. Isang bagay lang — kapag binuksan mo, 'wag mo na akong tingnan ng ganun pagkatapos. Hindi ko kayang bawiin ang mukha ng apo na nagmamahal sa akin.",
+      "line_en": "You don't know. You don't know yet. But if you've decided, I can't stop you. Just one thing — once you open it, don't look at me that way afterwards. I can't take back the face of the grandchild who loved me.",
+      "actions": [{"type": "set_flag", "flag": "lola_hurt"}],
+      "next": "lola_truth_begin"
+    },
+    "silence_reply": {
+      "speaker": "Lola Pacita",
+      "line": "Katahimikan rin ang isang sagot, apo. Mahaba ang katahimikan sa bahay na ito. Ganun ang itinuro sa akin ng Lolo mo. Baka panahon na, ngayong narito ka, matapos ang katahimikan.",
+      "line_en": "Silence is also an answer, apo. Silence has lived long in this house. Lolo taught me that. Maybe it is time, now that you are here, for the silence to end.",
+      "next": "lola_truth_begin"
+    },
+    "lola_truth_begin": {
+      "speaker": "Lola Pacita",
+      "line": "May pangalan ang silid na 'yon. Hindi silid ni Lolo. Silid ni Tala. Ang kapatid ng Nanay mo.",
+      "line_en": "That room has a name. It is not Lolo's room. It was Tala's room. Your mother's sister.",
+      "actions": [{"type": "set_flag", "flag": "lola_said_tala"}],
+      "next": "lola_truth_2"
+    },
+    "lola_truth_2": {
+      "speaker": "Lola Pacita",
+      "line": "Nawala siya noong isang bagyo. Pito ang gulang. Hinanap namin siya sa dalampasigan, sa gubat, sa simbahan. Hindi na siya umuwi. Isinara namin ang pinto noong gabi na iyon at hindi na muling binuksan.",
+      "line_en": "She was lost in a storm. Seven years old. We looked at the shore, in the forest, at the church. She never came home. We shut that door that night and have not opened it since.",
+      "next": "lola_truth_3"
+    },
+    "lola_truth_3": {
+      "speaker": "Lola Pacita",
+      "line": "Sinabi ng mga tao, lumunod. Sinabi ng iba, kinuha ng tiyanak. Sinabi ni Lolo mo na siya ang may kasalanan — iyon ang pinakamasakit na sabi niya. Siya ang nag-utos sa kanya noong gabing iyon na pumasok sa loob. Hindi siya pumasok. Hindi niya narinig.",
+      "line_en": "People said she drowned. Others said a creature took her. Lolo said he was to blame — the heaviest thing he has ever said. He told her to come inside that night. She didn't. She did not hear.",
+      "next": "lola_warning_final"
+    },
+    "lola_warning_final": {
+      "speaker": "Lola Pacita",
+      "line": "Buksan mo kung kailangan mo. Pero alalahanin mo — hindi niya kasalanan na nasa silid na iyon ang alaala niya. Pati kaming dalawa. Ikaw lang ang bago rito. Baka ikaw lang ang makagagawa ng tama.",
+      "line_en": "Open it if you must. But remember — it is not her fault her memory lives in that room. Nor is it ours. You are the only new one here. Perhaps you are the only one who can make this right.",
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Lola Pacita",
+      "line": "Hihiga na ako. Kung may marinig kang kalampag mamaya — hindi iyon multo. Alaala lamang. Alagaan mo lang.",
+      "line_en": "I will lie down now. If you hear a sound later — that is not a ghost. Only a memory. Be gentle with it."
+    }
+  }
+}
