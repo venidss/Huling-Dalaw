@@ -215,10 +215,11 @@ func _build_house() -> void:
 		var post := _make_box(Vector3(0.14, floor_level + WALL_HEIGHT + 0.2, 0.14), _mat_wood_dark)
 		post.position = Vector3(x, (floor_level + WALL_HEIGHT + 0.2) / 2.0, 12.4)
 		add_child(post)
-	# Small front step.
-	var step := _make_box(Vector3(1.8, 0.25, 0.6), _mat_concrete)
-	step.position = Vector3(4, floor_level - 0.1, 10.6)
-	add_child(step)
+	# Entrance ramp — a 10°, 1.5m-long slope from the ground (Y=0) up to the raised
+	# house floor (Y=0.25). CharacterBody3D doesn't auto-step; a ramp is the simplest
+	# way to make the entrance traversable without changing the architecture. The
+	# ramp spans Z = 10.0 (at the wall) to Z = 11.5 (outside).
+	_add_entrance_ramp(Vector3(4, 0.0, 10.75), 2.0, 1.5, floor_level)
 
 	# Roof (large peaked prism).
 	_add_roof(floor_level + WALL_HEIGHT)
@@ -440,31 +441,33 @@ func _build_furniture() -> void:
 	_add_fuse_box(Vector3(8 - 0.03, 0.25 + 1.4, 0.5))
 
 func _add_door(pos: Vector3, rot_y_deg: float, width: float, required_key: String) -> Node3D:
+	# Door is a StaticBody3D positioned AT the hinge side of the opening (no separate
+	# Hinge Node3D). CollisionShape3D and mesh are DIRECT children, so when the body
+	# rotates to open, the collision shape rotates with it in the physics server.
+	# door_root wraps the body so the wall orientation (yaw) is separate from the
+	# door's open/close angle.
 	var door_root := Node3D.new()
 	door_root.position = pos
 	door_root.rotation.y = deg_to_rad(rot_y_deg)
-	# Build the body + hinge + slab subtree detached, then attach at the end so the
-	# door script's _ready sees its "Hinge" child via get_node_or_null().
 	var body := StaticBody3D.new()
 	body.set_script(load("res://scripts/interaction/door.gd"))
 	body.name = "DoorBody"
-	var hinge := Node3D.new()
-	hinge.name = "Hinge"
-	hinge.position = Vector3(-width / 2.0, 0, 0)
-	body.add_child(hinge)
+	# Shift the body so its origin sits on the hinge side of the opening. The slab and
+	# collider extend from +X of the body origin by half-width.
+	body.position = Vector3(-width / 2.0, 0, 0)
 	var slab := MeshInstance3D.new()
 	var box := BoxMesh.new()
 	box.size = Vector3(width, 2.1, 0.06)
 	slab.mesh = box
 	slab.material_override = _mat_wood_dark
 	slab.position = Vector3(width / 2.0, 1.05, 0)
-	hinge.add_child(slab)
+	body.add_child(slab)
 	var col := CollisionShape3D.new()
 	var box_sh := BoxShape3D.new()
 	box_sh.size = Vector3(width, 2.1, 0.06)
 	col.shape = box_sh
 	col.position = Vector3(width / 2.0, 1.05, 0)
-	hinge.add_child(col)
+	body.add_child(col)
 	body.set("required_key", required_key)
 	body.set("opens_toward", Vector3(0, 1, 0))
 	body.set("open_angle_degrees", 85.0)
@@ -1121,8 +1124,9 @@ func _add_lola_npc() -> void:
 	var root := StaticBody3D.new()
 	root.set_script(load("res://scripts/interaction/dialogue_trigger.gd"))
 	root.name = "LolaNPC"
-	# Standing on the front porch so the apo can greet her the moment they arrive.
-	root.position = Vector3(2.5, 0.25, 11.5)
+	# Standing on the ground path just outside the front door, slightly to the side
+	# of the ramp so the player sees her as they approach from the gate.
+	root.position = Vector3(2.0, 0.0, 11.0)
 	root.rotation.y = deg_to_rad(180)   # facing the player as they approach
 	# Visuals: body + head.
 	_add_simple_person(root, Color(0.3, 0.25, 0.3), Color(0.85, 0.72, 0.6))
@@ -1303,6 +1307,30 @@ func _add_static_collider_box(size: Vector3, center: Vector3, rot_y_deg: float =
 
 func _add_floor_collider(size: Vector3, center: Vector3) -> void:
 	_add_static_collider_box(size, center)
+
+## Build a slanted ramp/platform with both visual and collision. The slope rises
+## from Y=0 at `center.z + length/2` (outside, far from the house) to Y=`rise` at
+## `center.z - length/2` (near the house wall). Pure-right-hand +X rotation tilts the
+## +Z end of the top surface downward, so the player walking in the -Z direction
+## climbs the ramp as expected.
+func _add_entrance_ramp(center: Vector3, wid: float, length: float, rise: float) -> void:
+	var slope_angle := atan2(rise, length)
+	var slab := _make_box(Vector3(wid, 0.1, length + 0.2), _mat_concrete)
+	slab.position = Vector3(center.x, rise * 0.5, center.z)
+	slab.rotation.x = slope_angle
+	add_child(slab)
+	# Collision — same transform, direct child of a StaticBody3D so physics tracks it.
+	var body := StaticBody3D.new()
+	body.collision_layer = 1
+	body.collision_mask = 0
+	body.position = Vector3(center.x, rise * 0.5, center.z)
+	body.rotation.x = slope_angle
+	var col := CollisionShape3D.new()
+	var bs := BoxShape3D.new()
+	bs.size = Vector3(wid, 0.1, length + 0.2)
+	col.shape = bs
+	body.add_child(col)
+	add_child(body)
 
 func _add_tree(pos: Vector3) -> void:
 	var trunk := _make_box(Vector3(0.3, 2.4, 0.3), _mat_wood_dark)
