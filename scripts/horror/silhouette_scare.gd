@@ -32,13 +32,15 @@ func _run() -> void:
 func _set_figure_alpha(figure: Node3D, alpha: float) -> void:
 	for child in figure.get_children():
 		if child is MeshInstance3D:
-			var mat := child.material_override
+			var mesh := child as MeshInstance3D
+			var mat: Material = mesh.material_override
 			if mat == null:
-				mat = StandardMaterial3D.new()
-				mat.albedo_color = Color(0.02, 0.02, 0.03, alpha)
-				mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-				child.material_override = mat
-			else:
-				var c: Color = mat.albedo_color
+				var new_mat := StandardMaterial3D.new()
+				new_mat.albedo_color = Color(0.02, 0.02, 0.03, alpha)
+				new_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				mesh.material_override = new_mat
+			elif mat is StandardMaterial3D:
+				var std_mat := mat as StandardMaterial3D
+				var c: Color = std_mat.albedo_color
 				c.a = alpha
-				mat.albedo_color = c
+				std_mat.albedo_color = c

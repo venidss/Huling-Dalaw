@@ -1192,7 +1192,7 @@ func _add_wall(a: Vector3, b: Vector3, exterior: bool) -> void:
 	size.y = maxf(size.y, 0.05)
 	size.z = maxf(size.z, WALL_THICKNESS)
 	var center := (a + b) * 0.5
-	var mat := _mat_wall_exterior if exterior else _mat_wall_interior
+	var mat: StandardMaterial3D = _mat_wall_exterior if exterior else _mat_wall_interior
 	var wall := _make_box(size, mat)
 	wall.position = center
 	add_child(wall)

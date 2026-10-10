@@ -68,7 +68,8 @@ func _spawn_contents() -> void:
 	mesh.mesh = box
 	var mat := StandardMaterial3D.new()
 	var def := Inventory.get_definition(spawn_item_id)
-	mat.albedo_color = def.get("color", Color(0.8, 0.7, 0.4))
+	var col: Color = def.get("color", Color(0.8, 0.7, 0.4))
+	mat.albedo_color = col
 	mat.metallic = 0.3
 	mat.roughness = 0.6
 	mesh.material_override = mat

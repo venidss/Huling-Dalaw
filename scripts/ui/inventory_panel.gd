@@ -49,7 +49,8 @@ func _refresh() -> void:
 		btn.custom_minimum_size = Vector2(0, 48)
 		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var swatch := ColorRect.new()
-		swatch.color = item.get("color", Color.WHITE)
+		var swatch_color: Color = item.get("color", Color.WHITE)
+		swatch.color = swatch_color
 		swatch.custom_minimum_size = Vector2(28, 28)
 		swatch.anchor_right = 0
 		swatch.position = Vector2(10, 10)
@@ -66,4 +67,5 @@ func _show_item(item: Dictionary) -> void:
 		if en != "":
 			preview_title.text += "\n(%s)" % en
 	preview_desc.text = desc
-	preview_swatch.color = item.get("color", Color.WHITE)
+	var preview_color: Color = item.get("color", Color.WHITE)
+	preview_swatch.color = preview_color

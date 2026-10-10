@@ -93,13 +93,15 @@ func _set_alpha(a: float) -> void:
 		return
 	for c in mesh_root.get_children():
 		if c is MeshInstance3D:
-			var mat := c.material_override
+			var mesh := c as MeshInstance3D
+			var mat: Material = mesh.material_override
 			if mat == null:
-				mat = StandardMaterial3D.new()
-				mat.albedo_color = Color(0.03, 0.02, 0.03, a)
-				mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-				c.material_override = mat
-			else:
-				var col: Color = mat.albedo_color
+				var new_mat := StandardMaterial3D.new()
+				new_mat.albedo_color = Color(0.03, 0.02, 0.03, a)
+				new_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				mesh.material_override = new_mat
+			elif mat is StandardMaterial3D:
+				var std_mat := mat as StandardMaterial3D
+				var col: Color = std_mat.albedo_color
 				col.a = a
-				mat.albedo_color = col
+				std_mat.albedo_color = col
