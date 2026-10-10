@@ -1,0 +1,81 @@
+{
+  "start": "arrive",
+  "nodes": {
+    "arrive": {
+      "speaker": "",
+      "line": "Lumalapit ka sa likod ng altar. Mas malamig dito kaysa sa anumang bahagi ng bahay. May isang maliit na kaha sa sahig — bukas ito.",
+      "line_en": "You approach behind the altar. It is colder here than anywhere else in the house. On the floor is a small box — already open.",
+      "next": "memory"
+    },
+    "memory": {
+      "speaker": "",
+      "line": "Sa loob: isang laruang kahoy. Isang kuwintas. At isang nakatiklop na papel na may isang pangalan.",
+      "line_en": "Inside: a wooden toy. A necklace. And a folded paper with a single name.",
+      "next": "name"
+    },
+    "name": {
+      "speaker": "Alaala",
+      "line": "Tala.",
+      "line_en": "Tala.",
+      "next": "voice"
+    },
+    "voice": {
+      "speaker": "Alaala",
+      "line": "Tinawag mo ako. Alam mo na ang pangalan ko. Ano ngayon ang gagawin mo?",
+      "line_en": "You called me. You know my name now. What will you do?",
+      "next": "choice"
+    },
+    "choice": {
+      "speaker": "Apo",
+      "line": "...",
+      "line_en": "...",
+      "choices": [
+        {
+          "text": "Sabihin ang pangalan mo sa Lola at Lolo. Harapin natin ito ng magkasama.",
+          "text_en": "Say your name to Lola and Lolo. Let's face this together.",
+          "actions": [
+            {"type": "set_ending", "ending": 1},
+            {"type": "journal", "text": "Pinili mong sabihin ang pangalan ni Tala."}
+          ],
+          "next": "forgiveness"
+        },
+        {
+          "text": "Isara ang kaha. Walang nangyari dito.",
+          "text_en": "Close the box. Nothing happened here.",
+          "actions": [
+            {"type": "set_ending", "ending": 2},
+            {"type": "journal", "text": "Isinarado mo ang kaha."}
+          ],
+          "next": "buried"
+        },
+        {
+          "text": "Humawak ng kuwintas. Pumikit.",
+          "text_en": "Hold the necklace. Close your eyes.",
+          "actions": [
+            {"type": "set_ending", "ending": 3},
+            {"type": "journal", "text": "Hinawakan mo ang kuwintas at hindi ka bumalik."}
+          ],
+          "next": "lost"
+        }
+      ]
+    },
+    "forgiveness": {
+      "speaker": "",
+      "line": "Nilagay mo ang papel sa iyong bulsa. Tumaas ka. Narinig mo ang mga yabag ni Lola sa pasilyo — para kang hinihintay niyang lumabas.",
+      "line_en": "You put the paper in your pocket. You stand. You hear Lola's footsteps in the hallway — as if she has been waiting for you.",
+      "actions": [{"type": "play_sfx", "sfx": "gentle_bell.wav"}]
+    },
+    "buried": {
+      "speaker": "",
+      "line": "Sinarado mo ang kaha. Nakalimutan mo ang pangalan na parang hindi mo iyon narinig. Ngunit may pangalan sa iyong hinihinga — kahit na ayaw mong aminin.",
+      "line_en": "You closed the box. You forgot the name as if you never heard it. But a name lingers in your breath — even if you refuse to admit it.",
+      "actions": [{"type": "play_sfx", "sfx": "heartbeat.wav"}]
+    },
+    "lost": {
+      "speaker": "",
+      "line": "Humawak ka ng kuwintas. Umaalis ang hangin. Hindi mo na alam kung ikaw ang humahawak o ang kuwintas ang humahawak sa iyo.",
+      "line_en": "You held the necklace. The air left. You no longer know if you held it or it held you.",
+      "actions": [{"type": "play_sfx", "sfx": "deep_rumble.wav"}]
+    }
+  }
+}

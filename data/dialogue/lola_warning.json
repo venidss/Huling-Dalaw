@@ -1,0 +1,23 @@
+{
+  "start": "s1",
+  "nodes": {
+    "s1": {
+      "speaker": "Lola Pacita",
+      "line": "Hinahanap mo ba 'yung silid? Sinabi ko sa iyo na 'wag mo buksan.",
+      "line_en": "Are you looking for that room? I told you not to open it.",
+      "next": "s2"
+    },
+    "s2": {
+      "speaker": "Lola Pacita",
+      "line": "Hindi lahat ng nakikita ay sakit, apo. Minsan... minsan ang alaala ay mabigat para sa dalawang matanda.",
+      "line_en": "Not everything you can see is a wound, child. Sometimes... a memory is too heavy for two old people.",
+      "actions": [{"type": "set_flag", "flag": "lola_softens"}],
+      "next": "s3"
+    },
+    "s3": {
+      "speaker": "Lola Pacita",
+      "line": "Kung desidido ka — hindi ko na mapipigilan. Ngunit huwag mo kaming hatulan. Pagkagising, kung tahimik ang bahay — ibig sabihin natapos na ang gabi.",
+      "line_en": "If you've decided — I cannot stop you. But do not judge us. When you wake, if the house is quiet — it means the night is over."
+    }
+  }
+}

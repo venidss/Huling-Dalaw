@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/mobile_controls.gd" id="1_mobile"]
+[ext_resource type="Script" path="res://scripts/ui/virtual_joystick.gd" id="2_joy"]
+[ext_resource type="Script" path="res://scripts/ui/touch_camera_area.gd" id="3_cam"]
+
+[node name="MobileControls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource("1_mobile")
+
+[node name="CameraArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 0.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 70.0
+offset_right = -70.0
+offset_bottom = -110.0
+mouse_filter = 1
+script = ExtResource("3_cam")
+
+[node name="Joystick" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.5
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 0.0
+offset_right = 320.0
+offset_bottom = -20.0
+mouse_filter = 1
+script = ExtResource("2_joy")
+
+[node name="BottomRight" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -230.0
+
+[node name="InteractButton" type="Button" parent="BottomRight"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 110.0
+text = "Interact
+E"
+
+[node name="SprintButton" type="Button" parent="BottomRight"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 110.0
+toggle_mode = false
+text = "Sprint"
+
+[node name="FlashlightButton" type="Button" parent="BottomRight"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 120.0
+offset_right = 120.0
+offset_bottom = 220.0
+text = "Light
+F"
+
+[node name="CrouchButton" type="Button" parent="BottomRight"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 120.0
+offset_right = 250.0
+offset_bottom = 220.0
+toggle_mode = true
+text = "Crouch
+C"
+
+[node name="TopRight" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -280.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 60.0
+
+[node name="InventoryButton" type="Button" parent="TopRight"]
+layout_mode = 0
+offset_left = 0.0
+offset_right = 85.0
+offset_bottom = 50.0
+text = "Bag  I"
+
+[node name="JournalButton" type="Button" parent="TopRight"]
+layout_mode = 0
+offset_left = 90.0
+offset_right = 175.0
+offset_bottom = 50.0
+text = "Diary J"
+
+[node name="PauseButton" type="Button" parent="TopRight"]
+layout_mode = 0
+offset_left = 185.0
+offset_right = 270.0
+offset_bottom = 50.0
+text = "Pause"

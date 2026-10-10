@@ -1,0 +1,69 @@
+{
+  "start": "greet",
+  "nodes": {
+    "greet": {
+      "speaker": "Lola Pacita",
+      "line": "Apo! Nakarating ka na. Pumasok ka na, maaliwalas ang bahay.",
+      "line_en": "Child! You're here. Come in, the house is calm.",
+      "next": "offer_food"
+    },
+    "offer_food": {
+      "speaker": "Lola Pacita",
+      "line": "May nagluto na akong adobong manok at kanin. Kain muna tayo mamaya, 'wag ka magpapagutom.",
+      "line_en": "I made chicken adobo and rice. We'll eat later. Don't go hungry.",
+      "next": "ask_choice"
+    },
+    "ask_choice": {
+      "speaker": "Apo",
+      "line": "Salamat, Lola. Ang tagal ko nang hindi nakakapunta rito. May itatanong sana ako...",
+      "line_en": "Thank you, Lola. It's been so long since I've visited. I was hoping to ask something...",
+      "choices": [
+        {"text": "Kumusta na si Lolo?", "text_en": "How is Lolo?", "next": "about_lolo"},
+        {"text": "Kanino 'yung mga lumang litrato sa pader?", "text_en": "Who's in the old photos on the wall?", "next": "about_photos"},
+        {"text": "May lumang silid ba rito?", "text_en": "Is there an old room here?", "next": "about_room"}
+      ]
+    },
+    "about_lolo": {
+      "speaker": "Lola Pacita",
+      "line": "Nasa dining room si Lolo mo. Kaunting malamig na siya kay sa dati. Puro bintana lang tinitingnan.",
+      "line_en": "Your Lolo is in the dining room. He's a little quieter now than before. He just looks out the window.",
+      "next": "ask_choice"
+    },
+    "about_photos": {
+      "speaker": "Lola Pacita",
+      "line": "Pamilya natin lahat 'yan. 'Wag mo na masyado tingnan — iniligpit ko na dapat 'yun. Mga lumang araw na.",
+      "line_en": "That's all our family. Don't look too closely — I should have put those away. Old days.",
+      "actions": [{"type": "set_flag", "flag": "lola_cagey"}],
+      "next": "ask_choice"
+    },
+    "about_room": {
+      "speaker": "Lola Pacita",
+      "line": "Pakinggan mo ako, apo. May isang silid dito sa tabi ng pasilyo. Nakakandado. 'Wag mong buksan. Pangako mo sa akin.",
+      "line_en": "Listen to me, apo. There is a room by the hallway. It is locked. Do not open it. Promise me.",
+      "actions": [{"type": "set_flag", "flag": "lola_warning"}],
+      "next": "pact"
+    },
+    "pact": {
+      "speaker": "Apo",
+      "line": "Opo, Lola.",
+      "line_en": "Yes, Lola.",
+      "next": "flashlight"
+    },
+    "flashlight": {
+      "speaker": "Lola Pacita",
+      "line": "Dito, kunin mo ang flashlight ko. Minsan nawawala ang kuryente dito sa Daet, lalo na kapag gabi.",
+      "line_en": "Here, take my flashlight. Sometimes we lose power here in Daet, especially at night.",
+      "actions": [
+        {"type": "add_item", "item": "flashlight"},
+        {"type": "complete_mission", "mission": "greet_lola"},
+        {"type": "set_flag", "flag": "greeted_lola"}
+      ],
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Lola Pacita",
+      "line": "Pahinga ka na. Umulan din kagabi. Maraming lamok, mag-ingat ka.",
+      "line_en": "Rest a little. It rained last night. There are mosquitoes — be careful."
+    }
+  }
+}

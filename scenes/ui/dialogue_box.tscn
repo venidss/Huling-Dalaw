@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/dialogue_box.gd" id="1_dlg"]
+
+[node name="DialogueBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_dlg")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -260.0
+offset_right = -60.0
+offset_bottom = -40.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Speaker" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Lola Pacita"
+theme_override_colors/font_color = Color(0.95, 0.82, 0.6, 1)
+theme_override_font_sizes/font_size = 20
+
+[node name="Line" type="RichTextLabel" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="EnglishLine" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.65, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="Choices" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="AdvanceHint" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "[Space] Advance"
+horizontal_alignment = 2
+theme_override_colors/font_color = Color(0.65, 0.6, 0.5, 1)
+theme_override_font_sizes/font_size = 12

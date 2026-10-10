@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/environment/game_controller.gd" id="1_ctrl"]
+[ext_resource type="PackedScene" path="res://scenes/environments/ancestral_house.tscn" id="2_house"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="4_hud"]
+
+[node name="Gameplay" type="Node"]
+script = ExtResource("1_ctrl")
+
+[node name="House" parent="." instance=ExtResource("2_house")]
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.4, 18.5)
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

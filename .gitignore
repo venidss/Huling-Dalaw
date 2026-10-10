@@ -1,0 +1,27 @@
+# Godot editor cache / imported assets — regenerated on first project open.
+.godot/
+.import/
+
+# Export outputs.
+build/
+*.pck
+*.apk
+*.aab
+*.exe
+*.x86_64
+*.app
+*.zip
+
+# User data (Godot stores saves in user:// outside the project but just in case).
+user_data/
+
+# OS caches.
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,176 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/settings_panel.gd" id="1_set"]
+
+[node name="SettingsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource("1_set")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.75)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -280.0
+offset_right = 300.0
+offset_bottom = 280.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.95, 0.82, 0.6, 1)
+
+[node name="AudioLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Audio"
+theme_override_colors/font_color = Color(0.85, 0.75, 0.6, 1)
+
+[node name="Audio" type="GridContainer" parent="Panel/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 10
+
+[node name="L1" type="Label" parent="Panel/VBox/Audio"]
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="Panel/VBox/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.9
+
+[node name="L2" type="Label" parent="Panel/VBox/Audio"]
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.7
+
+[node name="L3" type="Label" parent="Panel/VBox/Audio"]
+text = "Ambience"
+
+[node name="AmbienceSlider" type="HSlider" parent="Panel/VBox/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.85
+
+[node name="L4" type="Label" parent="Panel/VBox/Audio"]
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Panel/VBox/Audio"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.9
+
+[node name="InputLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Input"
+theme_override_colors/font_color = Color(0.85, 0.75, 0.6, 1)
+
+[node name="Input" type="GridContainer" parent="Panel/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 10
+
+[node name="L5" type="Label" parent="Panel/VBox/Input"]
+text = "Mouse Sens"
+
+[node name="MouseSensSlider" type="HSlider" parent="Panel/VBox/Input"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+min_value = 0.05
+max_value = 1.0
+step = 0.01
+value = 0.25
+
+[node name="L6" type="Label" parent="Panel/VBox/Input"]
+text = "Touch Sens"
+
+[node name="TouchSensSlider" type="HSlider" parent="Panel/VBox/Input"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+min_value = 0.05
+max_value = 0.8
+step = 0.01
+value = 0.18
+
+[node name="L7" type="Label" parent="Panel/VBox/Input"]
+text = "Invert Y"
+
+[node name="InvertY" type="CheckButton" parent="Panel/VBox/Input"]
+layout_mode = 2
+
+[node name="DisplayLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Display"
+theme_override_colors/font_color = Color(0.85, 0.75, 0.6, 1)
+
+[node name="Display" type="GridContainer" parent="Panel/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 10
+
+[node name="L8" type="Label" parent="Panel/VBox/Display"]
+text = "Subtitles"
+
+[node name="Subtitles" type="CheckButton" parent="Panel/VBox/Display"]
+layout_mode = 2
+button_pressed = true
+
+[node name="L9" type="Label" parent="Panel/VBox/Display"]
+text = "English Subs"
+
+[node name="EnglishSubtitles" type="CheckButton" parent="Panel/VBox/Display"]
+layout_mode = 2
+button_pressed = true
+
+[node name="L10" type="Label" parent="Panel/VBox/Display"]
+text = "Reduce Motion"
+
+[node name="ReduceMotion" type="CheckButton" parent="Panel/VBox/Display"]
+layout_mode = 2
+
+[node name="L11" type="Label" parent="Panel/VBox/Display"]
+text = "Mobile Controls"
+
+[node name="MobileControls" type="CheckButton" parent="Panel/VBox/Display"]
+layout_mode = 2
+button_pressed = true
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 36.0
+text = "X"

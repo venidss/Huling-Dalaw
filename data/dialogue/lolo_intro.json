@@ -1,0 +1,50 @@
+{
+  "start": "greet",
+  "nodes": {
+    "greet": {
+      "speaker": "Lolo Berto",
+      "line": "...Apo. Umupo ka.",
+      "line_en": "...Apo. Sit down.",
+      "next": "pause"
+    },
+    "pause": {
+      "speaker": "Lolo Berto",
+      "line": "...",
+      "line_en": "...",
+      "next": "ask"
+    },
+    "ask": {
+      "speaker": "Apo",
+      "line": "Lolo, bakit po tulala ka?",
+      "line_en": "Lolo, why are you so distant?",
+      "next": "reply"
+    },
+    "reply": {
+      "speaker": "Lolo Berto",
+      "line": "Tinitingnan ko ang hardin. Alam mo, dati maraming bata rito. Mga pinsan mo. Si... hindi na mahalaga.",
+      "line_en": "I'm looking at the garden. You know, there used to be children here. Your cousins. And... never mind.",
+      "actions": [{"type": "set_flag", "flag": "lolo_slip"}],
+      "next": "offer"
+    },
+    "offer": {
+      "speaker": "Apo",
+      "line": "Sino po 'yung iba?",
+      "line_en": "Who are the others?",
+      "next": "deflect"
+    },
+    "deflect": {
+      "speaker": "Lolo Berto",
+      "line": "Matanda na ako. Nagkakamali ng pangalan. Pumasok ka na, apo. Mamaya na ang usapan.",
+      "line_en": "I'm old. I mix up names. Go inside, apo. We'll talk later.",
+      "actions": [
+        {"type": "complete_mission", "mission": "meet_lolo"}
+      ],
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Lolo Berto",
+      "line": "Kung may maririnig kang kalampag mamayang gabi — 'wag mong pansinin.",
+      "line_en": "If you hear a noise tonight — don't pay attention to it."
+    }
+  }
+}

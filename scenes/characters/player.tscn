@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape3D" id="StandShape"]
+radius = 0.35
+height = 1.7
+
+[sub_resource type="CapsuleShape3D" id="CrouchShape"]
+radius = 0.35
+height = 1.1
+
+[sub_resource type="BoxMesh" id="FlashlightMesh"]
+size = Vector3(0.08, 0.08, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="FlashlightMat"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="SphereShape3D" id="InteractShape"]
+radius = 0.01
+
+[sub_resource type="StandardMaterial3D" id="CameraTint"]
+albedo_color = Color(1, 1, 1, 1)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="StandCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("StandShape")
+
+[node name="CrouchCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CrouchShape")
+disabled = true
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+fov = 70.0
+near = 0.05
+far = 60.0
+
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, -0.1)
+light_color = Color(1, 0.95, 0.78, 1)
+light_energy = 2.5
+spot_range = 12.0
+spot_angle = 32.0
+spot_angle_attenuation = 0.8
+visible = false
+
+[node name="InteractRay" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 5
+collide_with_areas = false
+collide_with_bodies = true
+
+[node name="FootstepTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
