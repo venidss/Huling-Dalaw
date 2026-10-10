@@ -11,6 +11,9 @@ build/
 *.x86_64
 *.app
 *.zip
+# Exception: ship the pre-built project ZIP so users can download it from GitHub
+# directly (via the file's "Download raw" button) without cloning.
+!Daet_Filipino_Horror_Godot_Project.zip
 
 # User data (Godot stores saves in user:// outside the project but just in case).
 user_data/
